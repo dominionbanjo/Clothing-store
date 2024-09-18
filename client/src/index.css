@@ -1,0 +1,50 @@
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("/src/assets/fonts/Manrope.ttf") format("truetype");
+  font-style: normal;
+  /* No need to define font-weight here */
+}
+body {
+  font-family: Manrope;
+  background-color: var(--dark-theme-background);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+.brown-text {
+  color: #ae9b84;
+}
+:root {
+  --light-theme-background: #ffff;
+  --dark-theme-background: #1a1a1a;
+  --light-color: #0000;
+  --dark-color: #ffff;
+  --dark-icon: #c2b4a3;
+  --light-icon: #ffd400;
+
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif Manrope;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark-theme {
+  background: var(--dark-theme-background);
+  color: var(--dark-color);
+}
