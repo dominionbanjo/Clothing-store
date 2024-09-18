@@ -22,6 +22,9 @@ html {
 .brown-text {
   color: #ae9b84;
 }
+a {
+  text-decoration: none;
+}
 :root {
   --light-theme-background: #ffff;
   --dark-theme-background: #1a1a1a;
