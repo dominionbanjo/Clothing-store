@@ -2,14 +2,16 @@ import Abstract from "../assets/Images/Abstract.png";
 const FashionJourney = () => {
   return (
     <>
-      <div className="journey">
+      <section className="journey">
         <div className="journey-top">
           <img src={Abstract} alt="" />
-          <h2>Navigating the StyleLoom Fashion Journey.</h2>
-          <p>
-            At StyleLoom, we've designed a straightforward shopping experience
-            to make fashion accessible.
-          </p>
+          <div className="journey-top-texts">
+            <h2>Navigating the StyleLoom Fashion Journey.</h2>
+            <p>
+              At StyleLoom, we've designed a straightforward shopping experience
+              to make fashion accessible.
+            </p>
+          </div>
         </div>
         <div className="journey-bottom">
           <div className="journey-grid-item">
@@ -45,7 +47,7 @@ const FashionJourney = () => {
             </p>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

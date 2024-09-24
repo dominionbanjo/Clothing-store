@@ -25,7 +25,7 @@ const Footer = () => {
 
   return (
     <Wrapper>
-      <div className="animated-section">
+      <section className="animated-section">
         <motion.div
           className="scrolling-section"
           variants={variants}
@@ -45,8 +45,8 @@ const Footer = () => {
             </div>
           ))}
         </motion.div>
-      </div>
-      <div className="social-section">
+      </section>
+      <section className="social-section">
         <h1>
           Style<span className="brown-text">.</span>Loom
         </h1>
@@ -64,8 +64,8 @@ const Footer = () => {
             <img src={social4} alt="be logo" />
           </NavLink>
         </div>
-      </div>
-      <div className="links-section">
+      </section>
+      <section className="links-section">
         <div className="left">
           <h3>Home</h3>
           <div className="links">
@@ -117,8 +117,8 @@ const Footer = () => {
             />
           </Form>
         </div>
-      </div>
-      <div className="t-and-c">
+      </section>
+      <section className="t-and-c">
         <div className="t-left">
           <p>© 2024 StyleLoom. All rights reserved.</p>
         </div>
@@ -127,7 +127,7 @@ const Footer = () => {
           <div className="dash"></div>
           <p>Privacy Policy</p>
         </div>
-      </div>
+      </section>
     </Wrapper>
   );
 };

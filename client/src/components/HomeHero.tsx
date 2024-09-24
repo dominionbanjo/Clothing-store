@@ -8,11 +8,11 @@ import FashionJourney from "./FashionJourney";
 const HomeHero = () => {
   return (
     <Wrapper>
-      <div className="top-hero">
+      <section className="top-hero">
         <div className="img-container">
           <img src={HeroImg} alt="woman with glasses" />
         </div>
-      </div>
+      </section>
       <ShopButton />
       <BottomHero />
       <CraftingSection />

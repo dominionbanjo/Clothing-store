@@ -1,7 +1,7 @@
 const BottomHero = () => {
   return (
     <>
-      <div className="bottom-hero">
+      <section className="bottom-hero">
         <div className="bottom-hero-left">
           <div className="top-options">
             <div className="button-shape">Unisex</div>
@@ -38,7 +38,7 @@ const BottomHero = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

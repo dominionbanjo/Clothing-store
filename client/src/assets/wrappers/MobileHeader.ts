@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Wrapper = styled.nav`
+const Wrapper = styled.header`
   @media (min-width: 992px) {
     display: none;
   }

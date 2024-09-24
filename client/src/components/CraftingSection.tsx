@@ -15,7 +15,7 @@ import icon6 from "../assets/Images/Icon6.png";
 const CraftingSection = () => {
   return (
     <>
-      <div className="crafting">
+      <section className="crafting">
         <div className="crafting-top">
           <h2>Crafting Trends, Inspiring Confidence</h2>
           <p>
@@ -79,7 +79,7 @@ const CraftingSection = () => {
             </p>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

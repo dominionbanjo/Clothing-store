@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Wrapper = styled.div`
+const Wrapper = styled.footer`
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -43,13 +43,13 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
     padding: 80px;
-    padding-left: 180px;
+    padding-left: 120px;
     border-bottom: 1px dashed rgba(194, 180, 163, 0.2);
     margin-bottom: 40px;
   }
   .social-section h1 {
     width: 70%;
-    font-size: 94px;
+    font-size: 74px;
   }
   .socials {
     width: 25%;
@@ -57,7 +57,7 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 50px;
+    padding: 0 10px;
   }
   .social-box {
     display: flex;
@@ -67,6 +67,7 @@ const Wrapper = styled.div`
     height: 45px;
     border-radius: 8px;
     background: #d6cdc2;
+    margin-right: 5px;
   }
   .links-section {
     width: 95%;
@@ -92,7 +93,7 @@ const Wrapper = styled.div`
     }
   }
   input {
-    width: 80%;
+    width: 85%;
     padding: 13px 20px;
     border-radius: 5px;
     background-color: #404040;
@@ -107,7 +108,7 @@ const Wrapper = styled.div`
   .submit-arrow {
     position: absolute;
     top: 25%;
-    right: 22%;
+    right: 18%;
   }
   .submit-arrow:hover {
     cursor: pointer;
@@ -123,7 +124,7 @@ const Wrapper = styled.div`
     opacity: 0.6;
   }
   .t-left {
-    width: 30%;
+    /* width: 30%; */
     /* background-color: #404040; */
   }
   .t-right {
@@ -131,13 +132,14 @@ const Wrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-right: 100px;
-    width: 19%;
+    /* width: 19%; */
   }
   .dash {
     width: 1px;
     height: 20px;
     background-color: #ffff;
     opacity: 0.4;
+    margin: 0 10px;
   }
 
   @keyframes scroll {

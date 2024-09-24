@@ -8,10 +8,13 @@ const Wrapper = styled.button`
   border: 1px dashed #ae9b84;
   align-items: center;
   justify-content: center;
-  width: 120px;
+  /* width: 7%; */
+  /* width: 120px; */
   height: 50px;
-  font-size: 18px;
+  /* font-size: 18px; */
+  font-size: 1vw;
   text-transform: capitalize;
+  padding: 5px 6px;
   svg {
     font-size: 22px;
   }

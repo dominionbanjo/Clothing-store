@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Wrapper = styled.nav`
+const Wrapper = styled.header`
   display: none;
   @media (min-width: 992px) {
     background-color: var(--dark-theme-background);

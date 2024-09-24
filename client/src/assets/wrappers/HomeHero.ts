@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   background-color: var(--dark-theme-background);
   display: flex;
   flex-direction: column;
@@ -35,7 +35,7 @@ const Wrapper = styled.div`
   }
   .bottom-hero {
     padding: 0 10px;
-    width: 80%;
+    width: 90%;
     margin-top: 40px;
     margin-bottom: 50px;
     display: flex;
@@ -69,6 +69,7 @@ const Wrapper = styled.div`
   .bottom-hero-left h2 {
     font-size: 35px;
     text-transform: uppercase;
+    margin-bottom: 20px;
   }
   .bottom-hero-left p {
     font-size: 15px;
@@ -77,7 +78,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 60%;
+    width: 45%;
     letter-spacing: 1.5px;
   }
   .left-hero-grid {
@@ -107,7 +108,7 @@ const Wrapper = styled.div`
     font-size: 1rem;
   }
   .crafting {
-    width: 80%;
+    width: 90%;
     margin-top: 150px;
     border: 1px dashed rgba(194, 180, 163, 0.2);
     border-radius: 15px;
@@ -121,6 +122,7 @@ const Wrapper = styled.div`
     margin-bottom: 60px;
   }
   .crafting-top h2 {
+    font-size: 40px;
     text-transform: uppercase;
     margin-bottom: 20px;
   }
@@ -171,7 +173,7 @@ const Wrapper = styled.div`
   }
 
   .journey {
-    width: 80%;
+    width: 90%;
     margin-top: 150px;
     border: 1px dashed rgba(194, 180, 163, 0.2);
     border-radius: 15px;
@@ -184,6 +186,10 @@ const Wrapper = styled.div`
     text-align: left;
     margin-bottom: 60px;
     position: relative;
+    z-index: 1;
+  }
+  .journey-top-texts {
+    width: 85%;
   }
 
   .journey-top img {
@@ -193,13 +199,17 @@ const Wrapper = styled.div`
     width: 200px;
     height: auto;
     border-top-right-radius: 10px;
+    z-index: -1;
   }
   .journey-top h2 {
+    font-size: 40px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     margin-bottom: 20px;
   }
   .journey-top p {
     font-size: 15px;
+    letter-spacing: 1.5px;
   }
 
   .journey-bottom {

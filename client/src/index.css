@@ -12,8 +12,14 @@
   /* No need to define font-weight here */
 }
 body {
+  letter-spacing: 1.5px;
+
   font-family: Manrope;
   background-color: var(--dark-theme-background);
+}
+.button,
+button:hover {
+  cursor: pointer;
 }
 
 html {
