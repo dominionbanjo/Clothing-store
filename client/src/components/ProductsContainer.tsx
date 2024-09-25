@@ -1,7 +1,7 @@
 import Product from "../components/Product";
-import ViewAllButton from "../components/ViewAllButton";
 import { products } from "../utils/products";
 import { useState } from "react";
+import ArrowButton from "./ArrowButton";
 
 const ProductsContainer = () => {
   const categories = ["Women's Wear", "Accessories", "Hand bag"];
@@ -29,7 +29,7 @@ const ProductsContainer = () => {
         <section className="dress-section gen-sec" key={category}>
           <div className="section-top">
             <h2>{category}</h2>
-            <ViewAllButton />
+            <ArrowButton text="View All" />
           </div>
           <div className="products-container">
             {products

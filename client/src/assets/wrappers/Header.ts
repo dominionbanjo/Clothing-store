@@ -58,18 +58,15 @@ const Wrapper = styled.header`
         /* background-color: #191919; */
         margin-right: 10px;
         border-radius: 5px;
+        transition: color 0.5s ease;
 
         &.active {
-          background-color: #1e1e1e;
-          /* color: #ff0000; Active link color */
+          background-color: #2a2a2a;
         }
 
         &:hover {
-          color: #007bff; /* Hover color */
+          color: #8d7d6a;
         }
-      }
-      .brown {
-        background-color: #ae9b84;
       }
 
       .header-link {
@@ -81,6 +78,12 @@ const Wrapper = styled.header`
       text-decoration: none;
     }
     .header-button {
+    }
+    .brown {
+      background-color: #ae9b84;
+      &:hover {
+        color: #ae9b84;
+      }
     }
   }
 `;

@@ -1,6 +1,6 @@
 import Wrapper from "../assets/wrappers/elevate";
 import Abstract from "../assets/Images/elevate.png";
-import ShopButton from "./ShopButton";
+import ArrowButton from "./ArrowButton";
 
 const Elevate = () => {
   return (
@@ -14,7 +14,7 @@ const Elevate = () => {
             Now' and embrace a world of chic elegance delivered to your
             doorstep. Your style journey begins here.{" "}
           </p>
-          <ShopButton />
+          <ArrowButton text="Shop Now" />
         </div>
       </div>
     </Wrapper>

@@ -1,6 +1,5 @@
 import Wrapper from "../assets/wrappers/Product";
-// import dress from "../assets/Images/dress1.png";
-import ShopButton from "./ShopButton";
+import ArrowButton from "./ArrowButton";
 
 type Product = {
   image: string;
@@ -17,7 +16,7 @@ const Product = ({ image, category, description, fit, price }: Product) => {
       </div>
       <div className="buttons">
         <div className="category">{category}</div>
-        <ShopButton />
+        <ArrowButton text="Shop Now" />
       </div>
       <div className="bottom">
         <h4>{description}</h4>

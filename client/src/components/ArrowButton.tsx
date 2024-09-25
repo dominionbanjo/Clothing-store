@@ -1,10 +1,10 @@
 import Wrapper from "../assets/wrappers/ShopButton";
 import { GoArrowUpRight } from "react-icons/go";
-const ShopButton = () => {
+const ArrowButton = ({ text }: { text: string }) => {
   return (
     <Wrapper>
-      shop now <GoArrowUpRight />
+      {text} <GoArrowUpRight />
     </Wrapper>
   );
 };
-export default ShopButton;
+export default ArrowButton;

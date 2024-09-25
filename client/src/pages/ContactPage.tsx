@@ -1,18 +1,11 @@
-import Elevate from "../components/Elevate";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import MobileHeader from "../components/MobileHeader";
-import TestimonialSection from "../components/TestimonialSection";
+import Wrapper from "../assets/wrappers/ContactPage";
+import ContactInfo from "../components/ContactInfo";
 
 const ContactPage = () => {
   return (
-    <>
-      <Header />
-      <MobileHeader />
-      <TestimonialSection />
-      <Elevate />
-      <Footer />
-    </>
+    <Wrapper>
+      <ContactInfo />
+    </Wrapper>
   );
 };
 export default ContactPage;

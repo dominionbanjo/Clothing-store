@@ -10,6 +10,9 @@ const Wrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
+    button {
+      padding: 0 15px;
+    }
     h2 {
       text-transform: uppercase;
     }

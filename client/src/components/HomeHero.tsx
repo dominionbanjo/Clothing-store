@@ -1,9 +1,9 @@
 import Wrapper from "../assets/wrappers/HomeHero";
 import HeroImg from "../assets/Images/Image.png";
-import ShopButton from "./ShopButton";
 import BottomHero from "./BottomHero";
 import CraftingSection from "./CraftingSection";
 import FashionJourney from "./FashionJourney";
+import ArrowButton from "./ArrowButton";
 
 const HomeHero = () => {
   return (
@@ -13,7 +13,7 @@ const HomeHero = () => {
           <img src={HeroImg} alt="woman with glasses" />
         </div>
       </section>
-      <ShopButton />
+      <ArrowButton text="Shop Now" />
       <BottomHero />
       <CraftingSection />
       <FashionJourney />
