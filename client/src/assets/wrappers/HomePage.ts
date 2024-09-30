@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
   align-items: center;
 
   .products-container {
@@ -14,6 +14,12 @@ const Wrapper = styled.div`
     margin: 0 auto;
     justify-content: center;
     gap: 0;
+  }
+  @media (max-width: 576px) {
+    .products-container {
+      grid-template-columns: repeat(1, 1fr);
+      width: 95%;
+    }
   }
 `;
 

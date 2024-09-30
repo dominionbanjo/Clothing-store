@@ -93,7 +93,7 @@ const Footer = () => {
               Women's wear
             </NavLink>
             <NavLink to="#" className="footer-links">
-              Kids wear
+              Kids-wear
             </NavLink>
             <NavLink to="#" className="footer-links">
               Unisex

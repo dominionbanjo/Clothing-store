@@ -10,7 +10,8 @@ const Wrapper = styled.header`
     padding-top: 10px;
     color: var(--dark-color);
     color: white;
-    width: 100vw;
+    /* width: 100vw; */
+    width: 100%;
     display: flex;
     .left,
     .right {

@@ -42,6 +42,7 @@ const Wrapper = styled.section.attrs({ className: "" })`
   .testimonial-top p {
     font-size: 15px;
     letter-spacing: 1.5px;
+    opacity: 0.6;
   }
 
   .testimonial-bottom {
@@ -85,6 +86,45 @@ const Wrapper = styled.section.attrs({ className: "" })`
     margin: 0;
     font-size: 13px;
     opacity: 0.6;
+  }
+
+  @media (max-width: 576px) {
+    .testimonial {
+      width: 95%;
+      margin-top: 50px;
+      padding-top: 25px;
+      margin-bottom: 20px;
+    }
+    .testimonial-top {
+      padding-left: 10px;
+      margin-bottom: 20px;
+    }
+    .testimonial-top-texts {
+      width: 95%;
+    }
+
+    .testimonial-top img {
+      display: none;
+    }
+    .testimonial-top h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+    .testimonial-top p {
+      font-size: 13px;
+    }
+
+    .testimonial-bottom {
+      grid-template-columns: repeat(1, 1fr);
+
+      :last-child {
+        border-bottom-left-radius: 15px;
+      }
+    }
+
+    .testimonial-grid-item {
+      height: 280px;
+    }
   }
 `;
 

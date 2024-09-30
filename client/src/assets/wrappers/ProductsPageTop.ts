@@ -11,7 +11,6 @@ const Wrapper = styled.div<WrapperProps>`
   align-items: center;
 
   .journey {
-    /* background-color: aliceblue; */
     width: 90%;
     margin-top: 60px;
     border: 1px dashed rgba(194, 180, 163, 0.2);
@@ -79,6 +78,66 @@ const Wrapper = styled.div<WrapperProps>`
     margin-right: 30px;
     border-radius: 5px;
     border: 1px dashed #81807e;
+  }
+  @media (max-width: 576px) {
+    .journey {
+      width: 95%;
+      margin-top: 30px;
+      padding-top: 25px;
+    }
+    .journey-top {
+      width: 100%;
+      padding-left: 10px;
+      text-align: left;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .journey-top-texts {
+      width: 96%;
+
+      p {
+        opacity: 0.6;
+      }
+    }
+
+    .journey-top img {
+      display: none;
+    }
+    .journey-top h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+    .journey-top p {
+      font-size: 13px;
+      letter-spacing: 1.5px;
+    }
+
+    .journey-bottom {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .top-options {
+      margin: 0;
+      width: 95%;
+      margin-bottom: 20px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .button-shape {
+      width: 60px;
+      font-size: 14px;
+      height: 22px;
+      padding: 15px 35px;
+      margin-right: 0px;
+    }
+
+    .active {
+      background-color: #c7baaa;
+    }
   }
 `;
 
