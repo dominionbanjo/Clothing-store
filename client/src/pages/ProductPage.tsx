@@ -5,48 +5,11 @@ import StarRating from "../components/StarRating";
 import { useState } from "react";
 import { Form } from "react-router-dom";
 import FormRow from "../components/FormRow";
+import { reviews } from "../utils/reviews";
 
 const Product = () => {
   const [ratingValue, setRatingValue] = useState(0);
   const [showMore, setShowMore] = useState(false);
-  const reviews = [
-    {
-      author: "John",
-      title: "Good Product",
-      comment: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      rating: 4,
-    },
-    {
-      author: "Jane",
-      title: "Excellent!",
-      comment: "Great quality and fit. Highly recommend!",
-      rating: 5,
-    },
-    {
-      author: "Alice",
-      title: "Satisfactory",
-      comment: "Meets expectations, but could improve.",
-      rating: 3,
-    },
-    {
-      author: "Bob",
-      title: "Not what I expected",
-      comment: "The fabric feels cheap.",
-      rating: 2,
-    },
-    {
-      author: "Charlie",
-      title: "Perfect!",
-      comment: "Absolutely love this dress!",
-      rating: 5,
-    },
-    {
-      author: "Dave",
-      title: "Very nice",
-      comment: "Looks good, but runs a bit small.",
-      rating: 4,
-    },
-  ];
 
   const handleRatingSelect = (rating: number) => {
     setRatingValue(rating);

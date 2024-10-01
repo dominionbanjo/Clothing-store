@@ -42,7 +42,8 @@ const Wrapper = styled.header`
     right: 15px;
     /* width: 100vw; */
     /* height: 100vh; */
-    width: 40%;
+    /* width: 40%; */
+    width: 180px;
     /* height: 100px; */
     z-index: 999;
     background-color: #0f0f0f;
@@ -55,6 +56,10 @@ const Wrapper = styled.header`
     /* padding-right: 30px; */
     a {
       font-size: 14px;
+      margin-bottom: 20px;
+    }
+    li {
+      margin-bottom: 12px;
     }
   }
 `;

@@ -30,6 +30,35 @@ const Wrapper = styled.div`
     justify-content: center;
     gap: 0;
   }
+  @media (max-width: 576px) {
+    .section-top {
+      width: 95%;
+      padding: 20px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 auto;
+      button {
+        font-size: 8px;
+        width: 65px;
+        padding: 1px 1px;
+        height: 35px;
+        border-radius: 3px;
+        svg {
+          font-size: 12px;
+        }
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+    }
+
+    .products-container {
+      grid-template-columns: repeat(1, 1fr);
+      width: 95%;
+    }
+  }
 `;
 
 export default Wrapper;

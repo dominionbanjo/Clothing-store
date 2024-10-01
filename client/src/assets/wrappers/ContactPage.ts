@@ -43,6 +43,7 @@ const Wrapper = styled.section`
   .first-section-top p {
     font-size: 15px;
     letter-spacing: 1.5px;
+    opacity: 0.6;
   }
 
   .first-section-bottom {
@@ -72,11 +73,6 @@ const Wrapper = styled.section`
     padding: 30px 40px;
     width: 100%;
     margin: 2Opx 0px;
-  }
-  .first-section-bottom {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
   }
 
   .first-section-grid-item {
@@ -164,6 +160,85 @@ const Wrapper = styled.section`
 
   .bottom .bottom-item:last-child {
     border: none;
+  }
+  @media (max-width: 576px) {
+    .first-section {
+      width: 95%;
+      margin-top: 30px;
+      padding-top: 20px;
+    }
+    .first-section-top {
+      padding: 10px 0;
+      padding-left: 18px;
+      margin-bottom: 20px;
+    }
+    .first-section-top-texts {
+      width: 95%;
+    }
+
+    .first-section-top img {
+      display: none;
+    }
+    .first-section-top h2 {
+      font-size: 22px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .first-section-top p {
+      font-size: 13px;
+    }
+
+    .first-section-bottom {
+      grid-template-columns: repeat(1, 1fr);
+      :last-child {
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+      }
+    }
+
+    .first-mid {
+      padding: 20px 18px;
+      margin: 2Opx 0px;
+    }
+
+    .second-section {
+      width: 95%;
+      margin-top: 120px;
+      border: 1px dashed rgba(194, 180, 163, 0.2);
+      border-radius: 20px;
+      button {
+        font-size: 16px;
+        width: 230px;
+        width: 90%;
+        padding: 1px 1px;
+        height: 40px;
+        border-radius: 3px;
+        svg {
+          font-size: 20px;
+          margin-left: 5px;
+        }
+      }
+    }
+    .top {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 30px 15px;
+      h2 {
+        font-size: 23px;
+        margin-bottom: 15px;
+      }
+    }
+    .bottom-item {
+      border-bottom: 1px dashed rgba(194, 180, 163, 0.2);
+    }
+    .bottom {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    .bottom .bottom-item:last-child {
+      border: none;
+    }
   }
 `;
 
