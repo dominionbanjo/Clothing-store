@@ -19,6 +19,7 @@ const Wrapper = styled.div`
   }
   .gen-sec button {
     cursor: pointer;
+    display: flex;
   }
 
   .products-container {
@@ -29,6 +30,10 @@ const Wrapper = styled.div`
     margin: 0 auto;
     justify-content: center;
     gap: 0;
+  }
+  .view-more {
+    margin: 10px auto;
+    padding: 8px 15px;
   }
   @media (max-width: 576px) {
     .section-top {

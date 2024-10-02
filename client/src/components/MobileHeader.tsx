@@ -4,6 +4,7 @@ import { TbAlignRight } from "react-icons/tb";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import { useEffect, useState, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
+import { CgProfile } from "react-icons/cg";
 import PopScreen from "./PopScreen";
 
 const MobileHeader = () => {
@@ -41,6 +42,14 @@ const MobileHeader = () => {
           Style<span className="brown-text">.</span>Loom
         </NavLink>
         <div className="right-icons">
+          <NavLink to="/login">
+            <CgProfile
+              type="button"
+              className="cart-btn"
+              onClick={() => console.log("cart")}
+            />
+          </NavLink>
+
           <HiMiniShoppingCart
             type="button"
             className="cart-btn"

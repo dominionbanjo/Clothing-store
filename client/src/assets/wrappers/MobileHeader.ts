@@ -31,10 +31,14 @@ const Wrapper = styled.header`
     border-radius: 5px;
   }
   .right-icons {
-    width: 20%;
+    width: 29%;
+    max-width: 110px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    a {
+      display: flex;
+    }
   }
   .pop-screen {
     position: absolute;

@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Header";
 import { HiMiniShoppingCart } from "react-icons/hi2";
-
+import { CgProfile } from "react-icons/cg";
 const Header = () => {
   return (
     <Wrapper>
@@ -25,6 +25,11 @@ const Header = () => {
           </NavLink>
         </li>
         <div className="right">
+          <li>
+            <NavLink to="/login">
+              <CgProfile style={{ color: "white" }} />
+            </NavLink>
+          </li>
           <li>
             <NavLink
               to="#"

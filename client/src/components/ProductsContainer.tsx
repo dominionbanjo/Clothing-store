@@ -1,5 +1,5 @@
 import Product from "../components/Product";
-import { products } from "../utils/products";
+import { products } from "../utils/products2";
 import { useState } from "react";
 import ArrowButton from "./ArrowButton";
 
@@ -48,7 +48,12 @@ const ProductsContainer = () => {
           </div>
           {products.filter((product) => product.category === category).length >
             visibleCounts[category] && (
-            <button onClick={() => handleViewMore(category)}>View More</button>
+            <button
+              className="view-more"
+              onClick={() => handleViewMore(category)}
+            >
+              View More
+            </button>
           )}
         </section>
       ))}
