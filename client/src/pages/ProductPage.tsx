@@ -9,6 +9,8 @@ import { reviews } from "../utils/reviews";
 
 const Product = () => {
   const [ratingValue, setRatingValue] = useState(0);
+  console.log(ratingValue);
+
   const [showMore, setShowMore] = useState(false);
 
   const handleRatingSelect = (rating: number) => {
