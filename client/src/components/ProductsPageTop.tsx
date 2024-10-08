@@ -1,7 +1,10 @@
 import Abstract from "../assets/Images/Abstract2.png";
 import Wrapper from "../assets/wrappers/ProductsPageTop";
+import { useProductsContext } from "../pages/AllProductsPage";
 
 const ProductsPageTop = ({ homepage }: { homepage: boolean }) => {
+  const { productType, setProductType } = useProductsContext();
+
   return (
     <Wrapper $homepage={homepage}>
       <div className="journey">
@@ -28,14 +31,43 @@ const ProductsPageTop = ({ homepage }: { homepage: boolean }) => {
         </div>
         <div className="journey-bottom">
           <div className="top-options">
-            <div className="button-shape button">Unisex</div>
-            <div className="button-shape button">Men</div>
-            <div className="button-shape button active">Women</div>
-            <div className="button-shape button">Kids</div>
+            <div
+              className={`button-shape button ${
+                productType === "Unisex" ? "active" : ""
+              }`}
+              onClick={() => setProductType("Unisex")}
+            >
+              Unisex
+            </div>
+            <div
+              className={`button-shape button ${
+                productType === "Men" ? "active" : ""
+              }`}
+              onClick={() => setProductType("Men")}
+            >
+              Men
+            </div>
+            <div
+              className={`button-shape button ${
+                productType === "Women" ? "active" : ""
+              }`}
+              onClick={() => setProductType("Women")}
+            >
+              Women
+            </div>
+            <div
+              className={`button-shape button ${
+                productType === "Kids" ? "active" : ""
+              }`}
+              onClick={() => setProductType("Kids")}
+            >
+              Kids
+            </div>
           </div>
         </div>
       </div>
     </Wrapper>
   );
 };
+
 export default ProductsPageTop;

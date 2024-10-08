@@ -1,10 +1,24 @@
 import Product from "../components/Product";
 import { products } from "../utils/products2";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ArrowButton from "./ArrowButton";
+import { useProductsContext } from "../pages/AllProductsPage";
 
 const ProductsContainer = () => {
-  const categories = ["Women's Wear", "Accessories", "Hand bag"];
+  const { productType } = useProductsContext();
+  console.log(productType);
+
+  const getCategories = (type: string) => {
+    if (type === "Men") {
+      return ["Men's Shirts", "Men's Shoes", "Men's Watches"];
+    } else if (type === "Unisex") {
+      return ["Glasses", "Skincare", "Fragrances"];
+    } else {
+      return ["Women's Wear", "Accessories", "Hand Bag"];
+    }
+  };
+
+  const categories = getCategories(productType);
 
   const initialVisibleCounts = categories.reduce((acc, category) => {
     acc[category] = 3;
@@ -12,47 +26,75 @@ const ProductsContainer = () => {
   }, {} as Record<string, number>);
 
   const [visibleCounts, setVisibleCounts] = useState(initialVisibleCounts);
+  const [showMore, setShowMore] = useState(
+    categories.reduce((acc, category) => {
+      acc[category] = false;
+      return acc;
+    }, {} as Record<string, boolean>)
+  );
 
-  const handleViewMore = (category: string) => {
+  useEffect(() => {
+    setVisibleCounts(
+      categories.reduce((acc, category) => {
+        acc[category] = 3;
+        return acc;
+      }, {} as Record<string, number>)
+    );
+
+    setShowMore(
+      categories.reduce((acc, category) => {
+        acc[category] = false;
+        return acc;
+      }, {} as Record<string, boolean>)
+    );
+  }, [productType]);
+
+  const handleToggleView = (subCategory: string) => {
     const filteredProductsCount = products.filter(
-      (product) => product.category === category
+      (product) => product.subCategory === subCategory
     ).length;
+
     setVisibleCounts((prevCounts) => ({
       ...prevCounts,
-      [category]: filteredProductsCount,
+      [subCategory]: showMore[subCategory] ? 3 : filteredProductsCount,
+    }));
+
+    setShowMore((prevShowMore) => ({
+      ...prevShowMore,
+      [subCategory]: !prevShowMore[subCategory],
     }));
   };
 
   return (
     <>
-      {["Women's Wear", "Accessories", "Hand bag"].map((category) => (
-        <section className="dress-section gen-sec" key={category}>
+      {categories.map((subCategory) => (
+        <section className="dress-section gen-sec" key={subCategory}>
           <div className="section-top">
-            <h2>{category}</h2>
+            <h2>{subCategory}</h2>
             <ArrowButton text="View All" />
           </div>
           <div className="products-container">
             {products
-              .filter((product) => product.category === category)
-              .slice(0, visibleCounts[category]) // Limit the number of displayed products
+              .filter((product) => product.subCategory === subCategory)
+              .slice(0, visibleCounts[subCategory])
               .map((product) => (
                 <Product
                   key={product.description}
                   description={product.description}
                   image={product.image}
-                  category={product.category}
+                  category={product.subCategory}
                   price={product.price}
                   fit={product.fit}
                 />
               ))}
           </div>
-          {products.filter((product) => product.category === category).length >
-            visibleCounts[category] && (
+          {products.filter((product) => product.subCategory === subCategory)
+            .length > 3 && (
             <button
               className="view-more"
-              onClick={() => handleViewMore(category)}
+              onClick={() => handleToggleView(subCategory)}
             >
-              View More
+              {showMore[subCategory] ? "Show Less" : "View More"}
             </button>
           )}
         </section>
@@ -60,4 +102,5 @@ const ProductsContainer = () => {
     </>
   );
 };
+
 export default ProductsContainer;

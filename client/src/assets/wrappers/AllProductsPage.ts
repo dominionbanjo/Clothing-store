@@ -35,6 +35,9 @@ const Wrapper = styled.div`
     margin: 10px auto;
     padding: 8px 15px;
   }
+  .active {
+    border: none;
+  }
   @media (max-width: 576px) {
     .section-top {
       width: 95%;
