@@ -3,7 +3,12 @@ import Wrapper from "../assets/wrappers/ProductsPageTop";
 import { useProductsContext } from "../pages/AllProductsPage";
 
 const ProductsPageTop = ({ homepage }: { homepage: boolean }) => {
-  const { productType, setProductType } = useProductsContext();
+  let productType: string | undefined;
+  let setProductType: ((type: string) => void) | undefined;
+
+  if (!homepage) {
+    ({ productType, setProductType } = useProductsContext());
+  }
 
   return (
     <Wrapper $homepage={homepage}>
@@ -29,42 +34,45 @@ const ProductsPageTop = ({ homepage }: { homepage: boolean }) => {
             )}
           </div>
         </div>
-        <div className="journey-bottom">
-          <div className="top-options">
-            <div
-              className={`button-shape button ${
-                productType === "Unisex" ? "active" : ""
-              }`}
-              onClick={() => setProductType("Unisex")}
-            >
-              Unisex
-            </div>
-            <div
-              className={`button-shape button ${
-                productType === "Men" ? "active" : ""
-              }`}
-              onClick={() => setProductType("Men")}
-            >
-              Men
-            </div>
-            <div
-              className={`button-shape button ${
-                productType === "Women" ? "active" : ""
-              }`}
-              onClick={() => setProductType("Women")}
-            >
-              Women
-            </div>
-            <div
-              className={`button-shape button ${
-                productType === "Kids" ? "active" : ""
-              }`}
-              onClick={() => setProductType("Kids")}
-            >
-              Kids
+
+        {!homepage && (
+          <div className="journey-bottom">
+            <div className="top-options">
+              <div
+                className={`button-shape button ${
+                  productType === "Unisex" ? "active" : ""
+                }`}
+                onClick={() => setProductType && setProductType("Unisex")}
+              >
+                Unisex
+              </div>
+              <div
+                className={`button-shape button ${
+                  productType === "Men" ? "active" : ""
+                }`}
+                onClick={() => setProductType && setProductType("Men")}
+              >
+                Men
+              </div>
+              <div
+                className={`button-shape button ${
+                  productType === "Women" ? "active" : ""
+                }`}
+                onClick={() => setProductType && setProductType("Women")}
+              >
+                Women
+              </div>
+              <div
+                className={`button-shape button ${
+                  productType === "Kids" ? "active" : ""
+                }`}
+                onClick={() => setProductType && setProductType("Kids")}
+              >
+                Kids
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </Wrapper>
   );

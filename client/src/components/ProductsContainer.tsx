@@ -6,15 +6,13 @@ import { useProductsContext } from "../pages/AllProductsPage";
 
 const ProductsContainer = () => {
   const { productType } = useProductsContext();
-  console.log(productType);
-
   const getCategories = (type: string) => {
     if (type === "Men") {
       return ["Men's Shirts", "Men's Shoes", "Men's Watches"];
     } else if (type === "Unisex") {
       return ["Glasses", "Skincare", "Fragrances"];
     } else {
-      return ["Women's Wear", "Accessories", "Hand Bag"];
+      return ["Women's Wear", "Accessories", "Hand bag"];
     }
   };
 

@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc --build",
     "setup-production-app": "npm i && tsc && cd client && npm i && npm run build",
     "start": "node ./dist/server.js",
+    "start2": "nodemon --exec ts-node src/server.ts",
     "dev": "nodemon ./src/server.ts",
     "run": "node dist/server.js"
   },
