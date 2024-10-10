@@ -1,21 +1,16 @@
 {
+  "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
-    "target": "es2020",
-    "module": "esnext",
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "esModuleInterop": true,
+    "outDir": "dist",
+    "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "skipLibCheck": true,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
+    "noEmitOnError": true
   },
-  "exclude": ["client"],
-  "ts-node": {
-    "esm": true
-  }
+  "include": ["src/**/*"],
+  "exclude": ["client", "node_modules"]
 }
