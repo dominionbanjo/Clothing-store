@@ -1,8 +1,7 @@
 import mongoose, { Document } from "mongoose";
 import { hashPassword } from "../utils/passwordUtil.js";
 export interface IUser extends Document {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
   password: string;
   location: string;
@@ -15,8 +14,7 @@ export interface IUser extends Document {
 }
 
 const UserSchema = new mongoose.Schema<IUser>({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
+  fullName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   location: { type: String, required: true },

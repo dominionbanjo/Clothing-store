@@ -12,6 +12,9 @@ import {
   Login,
   Register,
 } from "./pages";
+
+import { action as registerAction } from "./pages/Register";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -28,6 +31,7 @@ const router = createBrowserRouter([
   {
     path: "register",
     element: <Register />,
+    action: registerAction,
   },
   {
     path: "/",

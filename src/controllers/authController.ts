@@ -29,7 +29,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
     const token = createJWT({
       userId: user?._id as string,
-      name: user?.firstName as string,
+      name: user?.fullName as string,
       role: user?.role as string,
     });
     const oneDay = 1000 * 60 * 60 * 24;
@@ -69,7 +69,7 @@ export const forgotPassword = async (
     // const origin2 = "http://localhost:5100";
 
     await sendResetPasswordEmail({
-      name: user.firstName,
+      name: user.fullName,
       email: user.email,
       token: passwordToken,
       origin,

@@ -36,7 +36,7 @@ const withValidationErrors = (validateValues: ValidationChain[]) => {
 };
 
 export const validateRegisterInput = withValidationErrors([
-  body("firstName").notEmpty().withMessage("name is required"),
+  body("fullName").notEmpty().withMessage("Full name is required"),
   body("email")
     .notEmpty()
     .withMessage("email is required")
@@ -54,7 +54,6 @@ export const validateRegisterInput = withValidationErrors([
     .isLength({ min: 8 })
     .withMessage("password must be at least 8 characters long"),
   body("location").notEmpty().withMessage("location is required"),
-  body("lastName").notEmpty().withMessage("last name is required"),
 ]);
 
 export const validateLoginInput = withValidationErrors([

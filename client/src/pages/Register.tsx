@@ -1,22 +1,61 @@
-import { Form } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 import Wrapper from "../assets/wrappers/LoginAndRegister";
 import Header from "../components/Header";
 import MobileHeader from "../components/MobileHeader";
+import { useState } from "react";
+import { countries } from "../utils/countries";
+import customFetch from "../utils/customFetch";
+import { toast } from "react-toastify";
+import axios from "axios";
+
+export const action = async ({ request }: { request: Request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  try {
+    await customFetch.post("auth/register", data);
+    toast.success("Registration Successful");
+    return redirect("/login");
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        toast.error(error.response.data.msg);
+      } else if (error.request) {
+        toast.error("No response from server");
+      } else {
+        toast.error("Request error");
+      }
+    } else {
+      toast.error("An unknown error occurred");
+    }
+    return error;
+  }
+};
 
 const Register = () => {
+  var searchTerm: string = "";
+  const [selectedCountry, setSelectedCountry] = useState("");
+
+  const handleSearch = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    searchTerm = value;
+
+    setTimeout(() => {
+      searchTerm = "";
+    }, 400);
+  };
+
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCountry(e.target.value);
+  };
+
   return (
     <Wrapper>
       <Header />
       <MobileHeader />
       <div className="login-container">
-        <Form id="login-form" className="login-form">
+        <Form id="login-form" className="login-form" method="post">
           <h2>Register</h2>
-          <input
-            type="text"
-            name="first-name"
-            placeholder="First name"
-            required
-          />
+          <input type="text" name="fullName" placeholder="Full name" required />
           <input type="email" name="email" placeholder="Email" required />
           <input
             type="password"
@@ -24,6 +63,25 @@ const Register = () => {
             placeholder="Password"
             required
           />
+          <div className="location-field">
+            <label htmlFor="location">Location: </label>
+            <select
+              name="location"
+              value={selectedCountry}
+              onChange={(e) => {
+                handleSearch(e);
+                handleSelect(e);
+              }}
+              required
+            >
+              <option value="">Select a country</option>
+              {countries.map((country, index) => (
+                <option key={index} value={country}>
+                  {country}
+                </option>
+              ))}
+            </select>
+          </div>
           <p>
             Already have an account?
             <a className="aa" href="/login">
@@ -37,4 +95,5 @@ const Register = () => {
     </Wrapper>
   );
 };
+
 export default Register;

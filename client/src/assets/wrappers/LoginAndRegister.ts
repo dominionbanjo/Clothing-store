@@ -1,6 +1,13 @@
 import styled from "styled-components";
 
 const Wrapper = styled.section`
+  .location-field {
+    select {
+      padding: 5px 4px;
+      border-radius: 4px;
+      width: 52%;
+    }
+  }
   .login-container {
     z-index: -1;
     position: absolute;
