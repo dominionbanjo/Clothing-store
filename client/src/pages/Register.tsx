@@ -32,17 +32,7 @@ export const action = async ({ request }: { request: Request }) => {
 };
 
 const Register = () => {
-  var searchTerm: string = "";
   const [selectedCountry, setSelectedCountry] = useState("");
-
-  const handleSearch = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    searchTerm = value;
-
-    setTimeout(() => {
-      searchTerm = "";
-    }, 400);
-  };
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCountry(e.target.value);
@@ -68,10 +58,7 @@ const Register = () => {
             <select
               name="location"
               value={selectedCountry}
-              onChange={(e) => {
-                handleSearch(e);
-                handleSelect(e);
-              }}
+              onChange={handleSelect}
               required
             >
               <option value="">Select a country</option>
