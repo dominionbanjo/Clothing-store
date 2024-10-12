@@ -1,5 +1,8 @@
-import { UnauthenticatedError, UnauthorizedError } from "../errors/customError";
-import { verifyJWT } from "../utils/tokenUtil";
+import {
+  UnauthenticatedError,
+  UnauthorizedError,
+} from "../errors/customError.js";
+import { verifyJWT } from "../utils/tokenUtil.js";
 import { Request, Response, NextFunction } from "express";
 
 interface CustomRequest extends Request {

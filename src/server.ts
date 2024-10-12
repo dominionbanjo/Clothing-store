@@ -8,8 +8,8 @@ import cookieParser from "cookie-parser";
 import cloudinary from "cloudinary";
 import helmet from "helmet";
 import ExpressMongoSanitize from "express-mongo-sanitize";
-import errorHandlerMiddleWare from "./middleware/errorHandlerMiddleWare";
-import { authenticateUser } from "./middleware/authMiddleware";
+import errorHandlerMiddleWare from "./middleware/errorHandlerMiddleWare.js";
+// import { authenticateUser } from "./middleware/authMiddleware";
 
 const app = express();
 
@@ -17,7 +17,7 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import path from "path";
 
-import authRouter from "./routes/authRoutes";
+import authRouter from "./routes/authRoutes.js";
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUD_NAME as string,

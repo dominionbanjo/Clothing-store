@@ -3,14 +3,9 @@ import {
   UnauthenticatedError,
   UnauthorizedError,
   NotFoundError,
-} from "../errors/customError";
-import User from "../models/userModel";
-import {
-  validationResult,
-  body,
-  param,
-  ValidationChain,
-} from "express-validator";
+} from "../errors/customError.js";
+import User from "../models/userModel.js";
+import { validationResult, body, ValidationChain } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 
 interface ValidationValues {

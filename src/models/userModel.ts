@@ -1,5 +1,5 @@
 import mongoose, { Document } from "mongoose";
-import { hashPassword } from "../utils/passwordUtil";
+import { hashPassword } from "../utils/passwordUtil.js";
 export interface IUser extends Document {
   firstName: string;
   lastName: string;

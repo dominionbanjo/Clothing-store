@@ -1,12 +1,15 @@
 import { StatusCodes } from "http-status-codes";
-import User from "../models/userModel";
-import { comparePassword, hashPassword } from "../utils/passwordUtil";
-import { createJWT } from "../utils/tokenUtil";
-import { UnauthenticatedError, BadRequestError } from "../errors/customError";
+import User from "../models/userModel.js";
+import { comparePassword } from "../utils/passwordUtil.js";
+import { createJWT } from "../utils/tokenUtil.js";
+import {
+  UnauthenticatedError,
+  BadRequestError,
+} from "../errors/customError.js";
 import { Request, Response } from "express";
 import crypto from "crypto";
-import { sendResetPasswordEmail } from "../utils/sendResetPassword";
-import createHash from "../utils/createHash";
+import { sendResetPasswordEmail } from "../utils/sendResetPassword.js";
+import createHash from "../utils/createHash.js";
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   if (req.body.password) {

@@ -5,12 +5,12 @@ import {
   logout,
   forgotPassword,
   resetPassword,
-} from "../controllers/authController";
+} from "../controllers/authController.js";
 import rateLimit from "express-rate-limit";
 import {
   validateLoginInput,
   validateRegisterInput,
-} from "../middleware/validationMiddleware";
+} from "../middleware/validationMiddleware.js";
 
 const router = Router();
 
