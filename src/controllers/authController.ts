@@ -23,24 +23,28 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 export const login = async (req: Request, res: Response): Promise<void> => {
   if (req.body.email) {
     const user = await User.findOne({ email: req.body.email });
-    const validUser: boolean | null =
-      user && (await comparePassword(req.body.password, user.password));
-    if (!validUser) throw new UnauthenticatedError("invalid credentials");
+    if (user) {
+      const validUser: boolean | null =
+        user && (await comparePassword(req.body.password, user.password));
+      if (!validUser) throw new UnauthenticatedError("invalid credentials");
+      const firstName = user?.fullName.split(" ")[0];
+      const token = createJWT({
+        userId: user?._id as string,
+        name: firstName,
+        role: user?.role as string,
+      });
+      const oneDay = 1000 * 60 * 60 * 24;
 
-    const token = createJWT({
-      userId: user?._id as string,
-      name: user?.fullName as string,
-      role: user?.role as string,
-    });
-    const oneDay = 1000 * 60 * 60 * 24;
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      expires: new Date(Date.now() + oneDay),
-      secure: process.env.NODE_ENV === "production",
-      signed: true,
-    });
-    res.status(StatusCodes.OK).json({ msg: "user logged in" });
+      res.cookie("token", token, {
+        httpOnly: true,
+        expires: new Date(Date.now() + oneDay),
+        secure: process.env.NODE_ENV === "production",
+        signed: true,
+      });
+      res.status(StatusCodes.OK).json({ msg: "user logged in" });
+    } else {
+      throw new BadRequestError("No user found");
+    }
   } else {
     throw new BadRequestError("Please provide all fields");
   }

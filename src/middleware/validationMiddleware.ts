@@ -66,7 +66,7 @@ export const validateLoginInput = withValidationErrors([
 ]);
 
 export const validateUpdateUserInput = withValidationErrors([
-  body("firstName").notEmpty().withMessage("name is required"),
+  body("fullName").notEmpty().withMessage("Full name is required"),
   body("email")
     .notEmpty()
     .withMessage("email is required")
@@ -78,6 +78,5 @@ export const validateUpdateUserInput = withValidationErrors([
         throw new Error("email already exists");
       }
     }),
-  body("lastName").notEmpty().withMessage("last name is required"),
   body("location").notEmpty().withMessage("location is required"),
 ]);

@@ -2,13 +2,17 @@ import { NavLink } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Header";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import { CgProfile } from "react-icons/cg";
+import { useAppSelector } from "../hooks";
+
 const Header = () => {
+  const { user } = useAppSelector((store) => store.user);
+
   return (
     <Wrapper>
       <ul>
         <div className="left">
           <li>
-            <NavLink to="/" className="header-button " end>
+            <NavLink to="/" className="header-button" end>
               Home
             </NavLink>
           </li>
@@ -26,8 +30,22 @@ const Header = () => {
         </li>
         <div className="right">
           <li>
-            <NavLink to="/login">
-              <CgProfile style={{ color: "white" }} />
+            <NavLink to={user ? "/profile" : "/login"}>
+              {user?.avatar ? (
+                <img
+                  style={{
+                    width: "25px",
+                    height: "25px",
+                    borderRadius: "50%",
+                    marginRight: "18px",
+                  }}
+                  src={user.avatar}
+                  alt="avatar"
+                  className="img"
+                />
+              ) : (
+                <CgProfile style={{ color: "white" }} />
+              )}
             </NavLink>
           </li>
           <li>
@@ -37,12 +55,11 @@ const Header = () => {
               type="button"
               onClick={() => console.log("cart")}
             >
-              {/* <img src={CartIconSvg} alt="Cart-icon" /> */}
               <HiMiniShoppingCart />
             </NavLink>
           </li>
           <li>
-            <NavLink to="/contact" className={() => "header-button brown"} end>
+            <NavLink to="/contact" className="header-button brown" end>
               contact
             </NavLink>
           </li>
@@ -51,4 +68,5 @@ const Header = () => {
     </Wrapper>
   );
 };
+
 export default Header;

@@ -1,5 +1,7 @@
 import mongoose, { Document } from "mongoose";
 import { hashPassword } from "../utils/passwordUtil.js";
+import { countries } from "../utils/countries.js";
+
 export interface IUser extends Document {
   fullName: string;
   email: string;
@@ -17,7 +19,14 @@ const UserSchema = new mongoose.Schema<IUser>({
   fullName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  location: { type: String, required: true },
+  location: {
+    type: String,
+    required: true,
+    enum: {
+      values: countries,
+      message: "{VALUE} is not a valid country",
+    },
+  },
   role: {
     type: String,
     enum: ["user", "admin"],

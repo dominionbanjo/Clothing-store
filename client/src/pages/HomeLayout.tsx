@@ -5,7 +5,15 @@ import Footer from "../components/Footer";
 import Elevate from "../components/Elevate";
 import QandA from "../components/QandA";
 import TestimonialSection from "../components/TestimonialSection";
+import { useAppDispatch } from "../hooks";
+import { useEffect } from "react";
+import { fetchUser } from "../../features/userSlice";
+
 const HomeLayout = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
   return (
     <>
       <Header />

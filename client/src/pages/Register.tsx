@@ -1,4 +1,4 @@
-import { Form, redirect } from "react-router-dom";
+import { Form, redirect, useNavigation } from "react-router-dom";
 import Wrapper from "../assets/wrappers/LoginAndRegister";
 import Header from "../components/Header";
 import MobileHeader from "../components/MobileHeader";
@@ -32,6 +32,9 @@ export const action = async ({ request }: { request: Request }) => {
 };
 
 const Register = () => {
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
+
   const [selectedCountry, setSelectedCountry] = useState("");
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -76,7 +79,10 @@ const Register = () => {
               Login
             </a>
           </p>
-          <button type="submit">Register</button>
+          <button type="submit">
+            {" "}
+            {isSubmitting ? "Submitting" : "Register"}
+          </button>
         </Form>
       </div>
     </Wrapper>

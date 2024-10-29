@@ -6,8 +6,11 @@ import { useEffect, useState, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
 import { CgProfile } from "react-icons/cg";
 import PopScreen from "./PopScreen";
+import { useAppSelector } from "../hooks";
 
 const MobileHeader = () => {
+  const { user } = useAppSelector((store) => store.user);
+
   const [showMenu, setShowMenu] = useState(false);
   const popScreenRef = useRef<HTMLDivElement>(null);
 
@@ -42,12 +45,22 @@ const MobileHeader = () => {
           Style<span className="brown-text">.</span>Loom
         </NavLink>
         <div className="right-icons">
-          <NavLink to="/login">
-            <CgProfile
-              type="button"
-              className="cart-btn"
-              onClick={() => console.log("cart")}
-            />
+          <NavLink to={user ? "/profile" : "/login"}>
+            {user?.avatar ? (
+              <img
+                style={{
+                  width: "25px",
+                  height: "25px",
+                  borderRadius: "50%",
+                  marginRight: "18px",
+                }}
+                src={user.avatar}
+                alt="avatar"
+                className="img"
+              />
+            ) : (
+              <CgProfile style={{ color: "white" }} />
+            )}
           </NavLink>
 
           <HiMiniShoppingCart

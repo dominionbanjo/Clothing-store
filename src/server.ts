@@ -9,7 +9,7 @@ import cloudinary from "cloudinary";
 import helmet from "helmet";
 import ExpressMongoSanitize from "express-mongo-sanitize";
 import errorHandlerMiddleWare from "./middleware/errorHandlerMiddleWare.js";
-// import { authenticateUser } from "./middleware/authMiddleware";
+import { authenticateUser } from "./middleware/authMiddleware.js";
 
 const app = express();
 
@@ -18,6 +18,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 import authRouter from "./routes/authRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUD_NAME as string,
@@ -42,17 +43,18 @@ if (process.env.NODE_ENV === "development") {
 }
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use(express.static(path.resolve(__dirname, "../client/dist")));
+// app.use(express.static(path.resolve(__dirname, "../client/dist")));
 
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/users", authenticateUser, userRouter);
 
 app.get("/test", (req: Request, res: Response) => {
   res.json({ msg: "test route" });
 });
 
-app.use("*", (req: Request, res: Response) => {
-  res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
-});
+// app.use("*", (req: Request, res: Response) => {
+//   res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
+// });
 
 app.use(errorHandlerMiddleWare);
 
