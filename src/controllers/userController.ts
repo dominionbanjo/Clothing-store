@@ -1,8 +1,8 @@
 import { StatusCodes } from "http-status-codes";
 import cloudinary from "cloudinary";
-import User from "../models/userModel";
-import { formatImage } from "../middleware/multerMiddleware";
-import { UnauthenticatedError } from "../errors/customError";
+import User from "../models/userModel.js";
+import { formatImage } from "../middleware/multerMiddleware.js";
+import { UnauthenticatedError } from "../errors/customError.js";
 import { Request, Response } from "express";
 
 export interface IUser {

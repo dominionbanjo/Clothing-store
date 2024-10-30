@@ -1,23 +1,32 @@
-import { Form, useNavigation } from "react-router-dom";
+import { Form, useNavigation, useNavigate } from "react-router-dom";
 import Wrapper from "../assets/wrappers/ProfilePage";
 import FormRow from "../components/FormRow";
 import { useAppSelector, useAppDispatch } from "../hooks";
-import { logout, fetchUser } from "../../features/userSlice";
+import { logout } from "../../features/userSlice";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { user, loading } = useAppSelector((store) => store.user);
-  console.log(user);
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
   useEffect(() => {
     if (!user) {
-      dispatch(fetchUser());
+      toast.success("Logout Successful");
+      navigate("/");
     }
-  }, [dispatch, user]);
+  }, [user, navigate]);
+
+  const handleLogout = async () => {
+    const resultAction = await dispatch(logout());
+    if (logout.fulfilled.match(resultAction)) {
+      navigate("/");
+    }
+  };
 
   if (loading) {
     return <p>Loading user data...</p>;
@@ -25,7 +34,7 @@ const Profile = () => {
 
   return (
     <Wrapper>
-      <button className="logout-button" onClick={() => dispatch(logout())}>
+      <button className="logout-button" onClick={handleLogout}>
         Logout
       </button>
       <Form method="post" encType="multipart/form-data">
@@ -37,7 +46,7 @@ const Profile = () => {
             marginBottom: "25px",
           }}
         >
-          profile
+          Profile
         </h1>
         <div className="form-center">
           <div className="form-row">
@@ -65,7 +74,7 @@ const Profile = () => {
             defaultValue={user?.location || ""}
           />
           <button className="btn" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "submitting" : "submit"}
+            {isSubmitting ? "Submitting" : "Submit"}
           </button>
         </div>
       </Form>

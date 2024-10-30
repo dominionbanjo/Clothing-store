@@ -1,9 +1,9 @@
 import { Router } from "express";
 const router = Router();
 
-import { getCurrentUser, updateUser } from "../controllers/userController";
-import upload from "../middleware/multerMiddleware";
-import { validateUpdateUserInput } from "../middleware/validationMiddleware";
+import { getCurrentUser, updateUser } from "../controllers/userController.js";
+import upload from "../middleware/multerMiddleware.js";
+import { validateUpdateUserInput } from "../middleware/validationMiddleware.js";
 
 router.get("/current-user", getCurrentUser);
 router.patch(

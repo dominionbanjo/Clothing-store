@@ -17,6 +17,8 @@ import {
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 
+import { loader as homeLoader } from "./pages/HomeLayout";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -40,6 +42,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <HomeLayout />,
     errorElement: <ErrorPage />,
+    loader: homeLoader,
     children: [
       {
         index: true,
