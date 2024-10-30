@@ -3,7 +3,7 @@ import Wrapper from "../assets/wrappers/ProfilePage";
 import FormRow from "../components/FormRow";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { logout, updateUser } from "../../features/userSlice";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { store } from "../store";
