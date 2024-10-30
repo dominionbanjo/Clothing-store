@@ -35,16 +35,20 @@ export const logout = createAsyncThunk("user/logout", async (_, thunkAPI) => {
   }
 });
 
-// Thunk to update user information
 export const updateUser = createAsyncThunk(
   "user/updateUser",
-  async (updatedData: Partial<User>, thunkAPI) => {
+  async (formData: FormData, thunkAPI) => {
     try {
-      const response = await axios.post(
+      const response = await axios.patch(
         "/api/v1/users/update-user",
-        updatedData
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
-      return response.data as User;
+      return response.data.user as User;
     } catch (error) {
       return thunkAPI.rejectWithValue("Failed to update user");
     }
@@ -90,7 +94,7 @@ const userSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.loading = false;
-        state.user = action.payload; // Update the user state with the updated user data
+        state.user = action.payload;
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.loading = false;

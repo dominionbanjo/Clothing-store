@@ -16,6 +16,7 @@ import {
 
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
+import { action as profileAction } from "./pages/Profile";
 
 import { loader as homeLoader } from "./pages/HomeLayout";
 
@@ -63,6 +64,7 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+        action: profileAction,
       },
     ],
   },
