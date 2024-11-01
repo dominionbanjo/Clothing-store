@@ -28,6 +28,8 @@ cloudinary.v2.config({
 
 app.use(cookieParser(process.env.COOKIE_SECRET as string));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(
   helmet.contentSecurityPolicy({
     directives: {

@@ -12,7 +12,7 @@ import { sendResetPasswordEmail } from "../utils/sendResetPassword.js";
 import createHash from "../utils/createHash.js";
 
 export const register = async (req: Request, res: Response): Promise<void> => {
-  if (req.body.password) {
+  if (req.body) {
     const user = await User.create(req.body);
     res.status(StatusCodes.CREATED).json({ msg: "user created successfully" });
   } else {

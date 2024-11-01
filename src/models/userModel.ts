@@ -16,9 +16,18 @@ export interface IUser extends Document {
 }
 
 const UserSchema = new mongoose.Schema<IUser>({
-  fullName: { type: String, required: true },
+  fullName: {
+    type: String,
+    required: true,
+    trim: true,
+    maxlength: [60, "Full name cannot be more than 70 characters"],
+  },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: {
+    type: String,
+    required: [true, "Please provide password"],
+    minlength: 8,
+  },
   location: {
     type: String,
     required: true,
