@@ -7,6 +7,7 @@ import QandA from "../components/QandA";
 import TestimonialSection from "../components/TestimonialSection";
 import { fetchUser } from "../../features/userSlice";
 import { store } from "../store";
+import ScrollToTop from "../components/ScrollToTop";
 
 export const loader = async () => {
   await store.dispatch(fetchUser());
@@ -18,6 +19,7 @@ const HomeLayout = () => {
     <>
       <Header />
       <MobileHeader />
+      <ScrollToTop />
       <Outlet />
       <TestimonialSection />
       <QandA />
