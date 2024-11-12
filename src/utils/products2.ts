@@ -1,5 +1,4 @@
-interface IProduct {
-  _id?: string;
+interface Product {
   image: string;
   category: string;
   subCategory: string;
@@ -8,9 +7,10 @@ interface IProduct {
   price: string;
   sizes: string[];
   features: string[];
+  user: string;
 }
 
-export const products: IProduct[] = [
+export const products: Product[] = [
   {
     image:
       "https://res.cloudinary.com/dcmg4skhv/image/upload/v1727093106/dress1_vap7ck.png",
@@ -27,6 +27,7 @@ export const products: IProduct[] = [
       "Available in multiple sizes",
       "Machine washable",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -45,6 +46,7 @@ export const products: IProduct[] = [
       "Perfect for casual outings",
       "Easy to care for, machine washable",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -63,6 +65,7 @@ export const products: IProduct[] = [
       "Back zip closure",
       "Perfect for evening events",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -81,6 +84,7 @@ export const products: IProduct[] = [
       "Breathable cotton material",
       "Stylish summer accessory",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -99,6 +103,7 @@ export const products: IProduct[] = [
       "Chic accessory for the beach",
       "Durable and long-lasting",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -117,13 +122,14 @@ export const products: IProduct[] = [
       "Adjustable inner band",
       "Suitable for casual and formal wear",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
       "https://res.cloudinary.com/dcmg4skhv/image/upload/v1727093105/bag1_duakgx.png",
     category: "Women",
 
-    subCategory: "Hand bag",
+    subCategory: "Hand Bag",
     description: "Bold Backpack",
     fit: "Roomy interior",
     price: "$129.99",
@@ -135,13 +141,14 @@ export const products: IProduct[] = [
       "Durable canvas construction",
       "Water-resistant finish",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
       "https://res.cloudinary.com/dcmg4skhv/image/upload/v1727093106/bag2_fm0zoj.png",
     category: "Women",
 
-    subCategory: "Hand bag",
+    subCategory: "Hand Bag",
     description: "Night Out Glam",
     fit: "Compact size",
     price: "$79.99",
@@ -153,13 +160,14 @@ export const products: IProduct[] = [
       "Detachable shoulder strap",
       "Multiple interior compartments",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
       "https://res.cloudinary.com/dcmg4skhv/image/upload/v1727093105/bag3_sjmwn9.png",
     category: "Women",
 
-    subCategory: "Hand bag",
+    subCategory: "Hand Bag",
     description: "Hand bag",
     fit: "Spacious",
     price: "$49.99",
@@ -171,6 +179,7 @@ export const products: IProduct[] = [
       "Durable faux leather finish",
       "Easy to wipe clean",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -187,6 +196,7 @@ export const products: IProduct[] = [
       "Sleek black color",
       "Perfect for formal events",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -199,6 +209,7 @@ export const products: IProduct[] = [
     price: "$89.99",
     sizes: ["XS", "S", "M", "L"],
     features: ["Bold and edgy", "Stylish corset", "Matching skirt"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -215,6 +226,7 @@ export const products: IProduct[] = [
       "Classic black skirt",
       "Versatile for occasions",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -226,6 +238,7 @@ export const products: IProduct[] = [
     fit: "Loose",
     price: "$49.99",
     sizes: ["M", "L", "XL"],
+    user: "671f6bc47a31a6222f12738d",
     features: ["Pea pattern", "Casual style", "Comfortable fit"],
   },
   {
@@ -239,13 +252,14 @@ export const products: IProduct[] = [
     price: "$179.99",
     sizes: ["S", "M", "L", "XL"],
     features: ["Sophisticated suit", "Red and black tones", "Modern design"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
-      "https://cdn.dummyjson.com/products/images/womens-bags/Blue%20Women's%20Handbag/1.png",
+      "https://cdn.dummyjson.com/products/images/womens-Bags/Blue%20Women's%20Handbag/1.png",
     category: "Women",
 
-    subCategory: "Hand bag",
+    subCategory: "Hand Bag",
     description: "Blue Women's Handbag",
     fit: "Spacious",
     price: "$49.99",
@@ -257,13 +271,14 @@ export const products: IProduct[] = [
       "Durable material",
       "Easy to wipe clean",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
       "https://cdn.dummyjson.com/products/images/womens-bags/Heshe%20Women's%20Leather%20Bag/1.png",
     category: "Women",
 
-    subCategory: "Hand bag",
+    subCategory: "Hand Bag",
     description: "Heshe Women's Leather Bag",
     fit: "Sophisticated",
     price: "$129.99",
@@ -275,13 +290,14 @@ export const products: IProduct[] = [
       "Comfortable to carry",
       "Ample storage space",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
       "https://cdn.dummyjson.com/products/images/womens-bags/Prada%20Women%20Bag/1.png",
     category: "Women",
 
-    subCategory: "Hand bag",
+    subCategory: "Hand Bag",
     description: "Prada Women Bag",
     fit: "Luxurious",
     price: "$599.99",
@@ -293,13 +309,14 @@ export const products: IProduct[] = [
       "Spacious interior",
       "Iconic designer logo",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
       "https://cdn.dummyjson.com/products/images/womens-bags/White%20Faux%20Leather%20Backpack/1.png",
     category: "Women",
 
-    subCategory: "Hand bag",
+    subCategory: "Hand Bag",
     description: "White Faux Leather Backpack",
     fit: "Practical",
     price: "$39.99",
@@ -311,13 +328,14 @@ export const products: IProduct[] = [
       "Comfortable to wear",
       "Durable faux leather material",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
       "https://cdn.dummyjson.com/products/images/womens-bags/Women%20Handbag%20Black/1.png",
     category: "Women",
 
-    subCategory: "Hand bag",
+    subCategory: "Hand Bag",
     description: "Women Handbag Black",
     fit: "Versatile",
     price: "$59.99",
@@ -329,6 +347,7 @@ export const products: IProduct[] = [
       "Ample storage compartments",
       "Easy to pair with any outfit",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -347,6 +366,7 @@ export const products: IProduct[] = [
       "Ships in 1 week",
       "No return policy",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -365,6 +385,7 @@ export const products: IProduct[] = [
       "Ships in 1-2 business days",
       "60 days return policy",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -383,6 +404,7 @@ export const products: IProduct[] = [
       "Ships in 3-5 business days",
       "90 days return policy",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -401,6 +423,7 @@ export const products: IProduct[] = [
       "Ships in 1 month",
       "No return policy",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -419,6 +442,7 @@ export const products: IProduct[] = [
       "Ships in 3-5 business days",
       "90 days return policy",
     ],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -430,6 +454,7 @@ export const products: IProduct[] = [
     price: "$29.99",
     sizes: ["S", "M", "L", "XL"],
     features: ["High-quality fabric", "Classic check pattern", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -441,6 +466,7 @@ export const products: IProduct[] = [
     price: "$24.99",
     sizes: ["M", "L", "XL"],
     features: ["Cool Aorus logo", "Sleek design", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -452,6 +478,7 @@ export const products: IProduct[] = [
     price: "$34.99",
     sizes: ["M", "L", "XL"],
     features: ["Classic plaid pattern", "Timeless design", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -463,6 +490,7 @@ export const products: IProduct[] = [
     price: "$19.99",
     sizes: ["S", "M", "L"],
     features: ["Short sleeves", "Breezy and stylish", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -474,6 +502,7 @@ export const products: IProduct[] = [
     price: "$27.99",
     sizes: ["M", "L", "XL"],
     features: ["Stylish check pattern", "Classic and versatile", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -485,6 +514,7 @@ export const products: IProduct[] = [
     price: "$149.99",
     sizes: ["8", "9", "10", "11", "12"],
     features: ["Iconic design", "High-performance features", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -496,6 +526,7 @@ export const products: IProduct[] = [
     price: "$79.99",
     sizes: ["8", "9", "10", "11"],
     features: ["Maximum traction", "Stability and support", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -507,6 +538,7 @@ export const products: IProduct[] = [
     price: "$89.99",
     sizes: ["8", "9", "10", "11", "12"],
     features: ["Retro style", "Modern comfort", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -518,6 +550,7 @@ export const products: IProduct[] = [
     price: "$69.99",
     sizes: ["8", "9", "10", "11"],
     features: ["Stylish design", "Comfortable fit", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -529,6 +562,7 @@ export const products: IProduct[] = [
     price: "$89.99",
     sizes: [],
     features: ["Stylish design", "Genuine leather strap", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -540,6 +574,7 @@ export const products: IProduct[] = [
     price: "$1499.99",
     sizes: [],
     features: ["Timeless design", "High precision", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -551,6 +586,7 @@ export const products: IProduct[] = [
     price: "$8999.99",
     sizes: [],
     features: ["Classic design", "Date complication", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -562,6 +598,7 @@ export const products: IProduct[] = [
     price: "$12999.99",
     sizes: [],
     features: ["Moon phase complication", "Exquisite design", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -573,6 +610,7 @@ export const products: IProduct[] = [
     price: "$10999.99",
     sizes: [],
     features: ["Iconic design", "Date window", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -584,6 +622,7 @@ export const products: IProduct[] = [
     price: "$13999.99",
     sizes: [],
     features: ["Durable design", "Water resistant", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
 
   {
@@ -596,6 +635,7 @@ export const products: IProduct[] = [
     price: "$129.99",
     sizes: [],
     features: ["Elegant fragrance", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -607,6 +647,7 @@ export const products: IProduct[] = [
     price: "$89.99",
     sizes: [],
     features: ["Floral notes", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -618,6 +659,7 @@ export const products: IProduct[] = [
     price: "$69.99",
     sizes: [],
     features: ["Fruity scent", "Low stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -629,6 +671,7 @@ export const products: IProduct[] = [
     price: "$79.99",
     sizes: [],
     features: ["Floral fragrance", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -640,6 +683,7 @@ export const products: IProduct[] = [
     price: "$8.99",
     sizes: [],
     features: ["Personal care", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -651,6 +695,7 @@ export const products: IProduct[] = [
     price: "$12.99",
     sizes: [],
     features: ["Moisturizing body wash", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -662,6 +707,7 @@ export const products: IProduct[] = [
     price: "$9.99",
     sizes: [],
     features: ["Men's care", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -673,6 +719,7 @@ export const products: IProduct[] = [
     price: "$29.99",
     sizes: [],
     features: ["UV protection", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -684,6 +731,7 @@ export const products: IProduct[] = [
     price: "$24.99",
     sizes: [],
     features: ["Versatile design", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -695,6 +743,7 @@ export const products: IProduct[] = [
     price: "$34.99",
     sizes: [],
     features: ["Stylish design", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -706,6 +755,7 @@ export const products: IProduct[] = [
     price: "$19.99",
     sizes: [],
     features: ["Playful design", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
   {
     image:
@@ -717,5 +767,6 @@ export const products: IProduct[] = [
     price: "$22.99",
     sizes: [],
     features: ["UV protection", "In stock"],
+    user: "671f6bc47a31a6222f12738d",
   },
 ];

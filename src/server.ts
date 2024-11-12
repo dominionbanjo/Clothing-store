@@ -19,6 +19,8 @@ import path from "path";
 
 import authRouter from "./routes/authRoutes.js";
 import userRouter from "./routes/userRoutes.js";
+import productRouter from "./routes/productRoutes.js";
+import reviewRouter from "./routes/reviewRoutes.js";
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUD_NAME as string,
@@ -28,7 +30,7 @@ cloudinary.v2.config({
 
 app.use(cookieParser(process.env.COOKIE_SECRET as string));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 
 app.use(
   helmet.contentSecurityPolicy({
@@ -49,6 +51,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
+app.use("/api/v1/products", productRouter);
+app.use("/api/v1/reviews", reviewRouter);
 
 app.get("/test", (req: Request, res: Response) => {
   res.json({ msg: "test route" });

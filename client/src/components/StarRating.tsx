@@ -1,18 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface StarRatingProps {
   totalStars?: number;
   onRatingSelect?: (rating: number) => void;
   rating?: number;
+  resetRating?: boolean; // Add resetRating prop
 }
 
 const StarRating = ({
   totalStars = 5,
   onRatingSelect,
   rating,
+  resetRating, // Accept resetRating prop
 }: StarRatingProps) => {
   const [userRating, setUserRating] = useState(0);
   const [hover, setHover] = useState(0);
+
+  useEffect(() => {
+    if (resetRating) {
+      setUserRating(0);
+    }
+  }, [resetRating]); // Reset userRating when resetRating changes
 
   const handleClick = (index: number) => {
     if (onRatingSelect) {

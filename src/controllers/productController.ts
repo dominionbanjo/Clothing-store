@@ -38,7 +38,13 @@ export const getAllProducts = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const products = await Product.find({});
+  const { featured } = req.query;
+
+  const products =
+    featured === "true"
+      ? await Product.find({ featured: true })
+      : await Product.find({});
+
   res.status(StatusCodes.OK).json({ products, count: products.length });
 };
 

@@ -1,14 +1,16 @@
 import Wrapper from "../assets/wrappers/Product";
 import ArrowButton from "./ArrowButton";
+import { IProduct } from "../utils/types";
+import { Link } from "react-router-dom";
 
-type Product = {
-  image: string;
-  category: string;
-  description: string;
-  fit: string;
-  price: string;
-};
-const Product = ({ image, category, description, fit, price }: Product) => {
+const Product = ({
+  _id,
+  image,
+  category,
+  description,
+  fit,
+  price,
+}: IProduct) => {
   return (
     <Wrapper>
       <div className="product-image-container">
@@ -16,7 +18,9 @@ const Product = ({ image, category, description, fit, price }: Product) => {
       </div>
       <div className="buttons">
         <div className="category">{category}</div>
-        <ArrowButton text="Shop Now" />
+        <Link to={`/products/${_id}`}>
+          <ArrowButton text="Shop Now" />
+        </Link>
       </div>
       <div className="bottom">
         <h4>{description}</h4>
@@ -25,7 +29,7 @@ const Product = ({ image, category, description, fit, price }: Product) => {
             <span>Fit: </span> {fit}
           </div>
           <div className="options">
-            <span>Price: </span> {price}
+            <span>Price: </span>$ {price}
           </div>
         </div>
       </div>

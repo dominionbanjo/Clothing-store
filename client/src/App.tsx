@@ -17,8 +17,12 @@ import {
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { action as profileAction } from "./pages/Profile";
+import { action as productPageAction } from "./pages/ProductPage";
 
 import { loader as homeLoader } from "./pages/HomeLayout";
+import { loader as singleProductLoader } from "./pages/ProductPage";
+import { loader as homeProductsLoader } from "./components/HomePageProductsContainer";
+import { loader as productsLoader } from "./components/ProductsContainer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,14 +52,18 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+        loader: homeProductsLoader(queryClient),
       },
       {
         path: "products",
         element: <AllProductsPage />,
+        loader: productsLoader(queryClient),
       },
       {
         path: "products/:id",
         element: <ProductPage />,
+        action: productPageAction(queryClient),
+        loader: singleProductLoader(queryClient),
       },
       {
         path: "contact",

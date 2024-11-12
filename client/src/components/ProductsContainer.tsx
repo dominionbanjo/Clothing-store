@@ -1,10 +1,41 @@
 import Product from "../components/Product";
-import { products } from "../utils/products2";
+// import { products } from "../utils/products2";
 import { useState, useEffect } from "react";
 import ArrowButton from "./ArrowButton";
 import { useProductsContext } from "../pages/AllProductsPage";
+import customFetch from "../utils/customFetch";
+import { QueryClient, useQuery } from "@tanstack/react-query";
+import { IProduct } from "../utils/types";
+
+const productsQuery = () => {
+  return {
+    queryKey: ["Products"],
+    queryFn: async () => {
+      const { data } = await customFetch.get("/products");
+      return data.products;
+    },
+  };
+};
+
+export const loader = (queryClient: QueryClient) => async () => {
+  await queryClient
+    .ensureQueryData(productsQuery())
+    .then((res) => {
+      if (res.status === 500) {
+        throw new Response("Not Found", { status: 500 });
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  return true;
+};
 
 const ProductsContainer = () => {
+  const { data } = useQuery(productsQuery());
+  const products: IProduct[] = data || [];
+  // console.log(data);
+
   const { productType } = useProductsContext();
   const getCategories = (type: string) => {
     if (type === "Men") {
@@ -12,7 +43,7 @@ const ProductsContainer = () => {
     } else if (type === "Unisex") {
       return ["Glasses", "Skincare", "Fragrances"];
     } else {
-      return ["Women's Wear", "Accessories", "Hand bag"];
+      return ["Women's Wear", "Accessories", "Hand Bag"];
     }
   };
 
@@ -76,14 +107,7 @@ const ProductsContainer = () => {
               .filter((product) => product.subCategory === subCategory)
               .slice(0, visibleCounts[subCategory])
               .map((product) => (
-                <Product
-                  key={product.description}
-                  description={product.description}
-                  image={product.image}
-                  category={product.subCategory}
-                  price={product.price}
-                  fit={product.fit}
-                />
+                <Product key={product._id} {...product} />
               ))}
           </div>
           {products.filter((product) => product.subCategory === subCategory)

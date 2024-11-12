@@ -80,3 +80,22 @@ export const validateUpdateUserInput = withValidationErrors([
     }),
   body("location").notEmpty().withMessage("location is required"),
 ]);
+
+export const validateCreateProductInput = withValidationErrors([
+  body("image").notEmpty().withMessage("Image is required"),
+  body("category").notEmpty().withMessage("Category is required"),
+  body("subCategory").notEmpty().withMessage("Sub Category is required"),
+  body("description").notEmpty().withMessage("Description is required"),
+  body("fit").notEmpty().withMessage("fit is required"),
+  body("price").notEmpty().withMessage("price is required"),
+  body("sizes").notEmpty().withMessage("Sizes is required"),
+  body("features").notEmpty().withMessage("Features is required"),
+]);
+
+export const validateCreateReviewInput = withValidationErrors([
+  body("rating").notEmpty().withMessage("Rating is required"),
+  body("title").notEmpty().withMessage("Title is required"),
+  body("comment").notEmpty().withMessage("Comment is required"),
+  body("product").notEmpty().withMessage("Product is required"),
+  body("author").notEmpty().withMessage("Author is required"),
+]);

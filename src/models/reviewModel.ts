@@ -4,6 +4,7 @@ export interface IReview extends Document {
   rating: number;
   title: string;
   comment: string;
+  author: string;
   user: Types.ObjectId;
   product: Types.ObjectId;
 }
@@ -25,6 +26,10 @@ const ReviewSchema = new mongoose.Schema<IReview>(
     comment: {
       type: String,
       required: [true, "Please provide review text"],
+    },
+    author: {
+      type: String,
+      required: [true, "Please provide review's author"],
     },
     user: {
       type: Schema.Types.ObjectId,

@@ -62,6 +62,10 @@ const ProductSchema = new mongoose.Schema<IProduct>(
       required: [true, "Please provide product features"],
       default: [],
     },
+    featured: {
+      type: Boolean,
+      default: false,
+    },
     averageRating: {
       type: Number,
       default: 0,

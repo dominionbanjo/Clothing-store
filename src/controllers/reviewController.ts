@@ -119,6 +119,7 @@ export const getSingleProductReviews = async (
   res: Response
 ): Promise<void> => {
   const { id: productId } = req.params;
+
   if (productId) {
     const reviews = await Review.find({ product: productId });
     if (!reviews || reviews.length < 1) {
