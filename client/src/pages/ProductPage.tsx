@@ -18,7 +18,6 @@ export const action =
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
     const productId = data.product as string;
-    console.log(data);
 
     try {
       await customFetch.post("/reviews", data);
@@ -101,7 +100,6 @@ export const loader =
 
 const ProductPage = () => {
   const { user } = useAppSelector((store) => store.user);
-  console.log(user);
 
   const formRef = useRef<HTMLFormElement | null>(null);
   const [ratingValue, setRatingValue] = useState(0);
@@ -133,7 +131,6 @@ const ProductPage = () => {
   const { data: reviews } = useQuery(singleProductsReviewQuery(id)) as {
     data: IReview[];
   };
-  console.log(reviews);
 
   const handleRatingSelect = (rating: number) => setRatingValue(rating);
   const handleShowMore = () => setShowMore((prev) => !prev);
