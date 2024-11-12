@@ -33,7 +33,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://clothing-store-ct6.onrender.com",
+    origin: "https://clothing-store-ct6i.onrender.com",
     credentials: true,
   })
 );
