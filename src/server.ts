@@ -7,15 +7,15 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import cloudinary from "cloudinary";
 import helmet from "helmet";
+import cors from "cors";
 import ExpressMongoSanitize from "express-mongo-sanitize";
 import errorHandlerMiddleWare from "./middleware/errorHandlerMiddleWare.js";
 import { authenticateUser } from "./middleware/authMiddleware.js";
 
 const app = express();
 
-import { dirname } from "path";
+import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-import path from "path";
 
 import authRouter from "./routes/authRoutes.js";
 import userRouter from "./routes/userRoutes.js";
@@ -30,7 +30,13 @@ cloudinary.v2.config({
 
 app.use(cookieParser(process.env.COOKIE_SECRET as string));
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+
+app.use(
+  cors({
+    origin: "https://clothing-store-ct6.onrender.com",
+    credentials: true,
+  })
+);
 
 app.use(
   helmet.contentSecurityPolicy({
@@ -58,9 +64,9 @@ app.get("/test", (req: Request, res: Response) => {
   res.json({ msg: "test route" });
 });
 
-// app.use("*", (req: Request, res: Response) => {
-//   res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
-// });
+app.use("*", (req: Request, res: Response) => {
+  res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
+});
 
 app.use(errorHandlerMiddleWare);
 
