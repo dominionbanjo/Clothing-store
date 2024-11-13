@@ -31,12 +31,12 @@ cloudinary.v2.config({
 app.use(cookieParser(process.env.COOKIE_SECRET as string));
 app.use(express.json());
 
-app.use(
-  cors({
-    origin: "https://clothing-store-ct6.onrender.com",
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: "https://style-loom.netlify.app",
+//     credentials: true,
+//   })
+// );
 
 app.use(
   helmet.contentSecurityPolicy({
