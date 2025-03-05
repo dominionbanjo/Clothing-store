@@ -1,6 +1,10 @@
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import Product from "../components/Product";
 import customFetch from "../utils/customFetch";
+import {
+  LoadingContainer,
+  Spinner,
+} from "../assets/wrappers/HomepageProductsContainer";
 // import { products } from "../utils/products";
 // import { useLoaderData } from "react-router-dom";
 import { IProduct } from "../utils/types";
@@ -42,7 +46,15 @@ export const loader = (queryClient: QueryClient) => async () => {
 const HomePageProductsContainer = () => {
   // const { searchValues } = useLoaderData() as LoaderData;
 
-  const { data } = useQuery(featuredProductsQuery());
+  const { data, isLoading } = useQuery(featuredProductsQuery());
+  if (isLoading) {
+    return (
+      <LoadingContainer>
+        <Spinner></Spinner>
+        <p>Fetching products...</p>
+      </LoadingContainer>
+    );
+  }
 
   const products: IProduct[] = data || [];
 
