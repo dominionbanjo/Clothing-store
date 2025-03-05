@@ -40,3 +40,12 @@ export type User = {
   passwordToken?: string | null;
   passwordTokenExpirationDate?: Date | null;
 };
+
+export interface ICartItem {
+  productId: string;
+  description: string;
+  price: number;
+  image: string;
+  amount: number;
+  size: string;
+}

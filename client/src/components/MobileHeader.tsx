@@ -6,27 +6,27 @@ import { useEffect, useState, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
 import { CgProfile } from "react-icons/cg";
 import PopScreen from "./PopScreen";
+import Cart from "./Cart";
 import { useAppSelector } from "../hooks";
 
 const MobileHeader = () => {
   const { user } = useAppSelector((store) => store.user);
 
   const [showMenu, setShowMenu] = useState(false);
+  const [showCart, setShowCart] = useState(false);
   const popScreenRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        popScreenRef.current &&
-        !popScreenRef.current.contains(event.target as Node) &&
-        !event
-          .composedPath()
-          .includes(document.querySelector(".tb-align-right")!)
-      ) {
-        setShowMenu(false);
-      }
-    };
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      popScreenRef.current &&
+      !popScreenRef.current.contains(event.target as Node) &&
+      !event.composedPath().includes(document.querySelector(".tb-align-right")!)
+    ) {
+      setShowMenu(false);
+    }
+  };
 
+  useEffect(() => {
     if (showMenu) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
@@ -52,7 +52,7 @@ const MobileHeader = () => {
                   width: "25px",
                   height: "25px",
                   borderRadius: "50%",
-                  marginRight: "18px",
+                  // marginRight: "18px",
                 }}
                 src={user.avatar}
                 alt="avatar"
@@ -66,7 +66,7 @@ const MobileHeader = () => {
           <HiMiniShoppingCart
             type="button"
             className="cart-btn"
-            onClick={() => console.log("cart")}
+            onClick={() => setShowCart(!showCart)}
           />
           <TbAlignRight
             className="tb-align-right"
@@ -81,6 +81,7 @@ const MobileHeader = () => {
             />
           )}
         </AnimatePresence>
+        {showCart && <Cart mobile={true} setShowCart={setShowCart} />}
       </div>
     </Wrapper>
   );

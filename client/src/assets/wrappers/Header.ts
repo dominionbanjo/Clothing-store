@@ -38,6 +38,10 @@ const Wrapper = styled.header`
     }
     .right {
       /* align-items: flex-end; */
+      /* display: flex; */
+      align-items: center;
+      justify-content: center;
+      /* border: 2px solid red; */
     }
     ul {
       display: flex;

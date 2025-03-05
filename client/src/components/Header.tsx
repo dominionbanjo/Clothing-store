@@ -3,8 +3,12 @@ import Wrapper from "../assets/wrappers/Header";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import { CgProfile } from "react-icons/cg";
 import { useAppSelector } from "../hooks";
+import Cart from "./Cart";
+import { useState } from "react";
 
 const Header = () => {
+  const [showCart, setShowCart] = useState(false);
+
   const { user } = useAppSelector((store) => store.user);
 
   return (
@@ -53,7 +57,7 @@ const Header = () => {
               to="#"
               className="cart-btn"
               type="button"
-              onClick={() => console.log("cart")}
+              onClick={() => setShowCart(!showCart)}
             >
               <HiMiniShoppingCart />
             </NavLink>
@@ -65,6 +69,7 @@ const Header = () => {
           </li>
         </div>
       </ul>
+      {showCart && <Cart mobile={false} setShowCart={setShowCart} />}
     </Wrapper>
   );
 };

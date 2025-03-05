@@ -21,6 +21,9 @@ body {
 button:hover {
   cursor: pointer;
 }
+.selected {
+  border: 2px solid;
+}
 
 html {
   scroll-behavior: smooth;

@@ -1,16 +1,22 @@
 import Wrapper from "../assets/wrappers/ProductPage";
 import Cart from "../assets/Images/cart.png";
 import StarRating from "../components/StarRating";
-import { useRef, useState } from "react";
-import { Form, Params, useLoaderData, useNavigation } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
+import {
+  Form,
+  Params,
+  useLoaderData,
+  useNavigation,
+  useNavigate,
+} from "react-router-dom";
 import FormRow from "../components/FormRow";
-// import { reviews } from "../utils/reviews";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import customFetch from "../utils/customFetch";
 import { IProduct, IReview } from "../utils/types";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useAppSelector } from "../hooks";
+import { useAppSelector, useAppDispatch } from "../hooks";
+import { addItem } from "../../features/cartSlice";
 
 export const action =
   (queryClient: QueryClient) =>
@@ -61,6 +67,7 @@ const singleProductsReviewQuery = (id: string) => ({
     const { data } = await customFetch.get(`/reviews/${id}/review`);
     return data.reviews;
   },
+  staleTime: Infinity,
 });
 
 // Loader for prefetching data
@@ -99,12 +106,14 @@ export const loader =
   };
 
 const ProductPage = () => {
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((store) => store.user);
 
   const formRef = useRef<HTMLFormElement | null>(null);
   const [ratingValue, setRatingValue] = useState(0);
   const [resetRating, setResetRating] = useState(false);
   const [showMore, setShowMore] = useState(false);
+  const [selectedSize, setSelectedSize] = useState<string>("");
 
   const handleFormSubmit = () => {
     const intervalId = setInterval(() => {
@@ -121,19 +130,61 @@ const ProductPage = () => {
     }, 100);
   };
 
+  const handleSizeSelect = (size: string) => setSelectedSize(size);
+
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   const id = useLoaderData() as string;
 
+  const navigate = useNavigate();
+
   const { data: product } = useQuery(singleProductsQuery(id)) as {
     data: IProduct;
   };
-  const { data: reviews } = useQuery(singleProductsReviewQuery(id)) as {
-    data: IReview[];
-  };
+  // const { data: reviews } = useQuery(singleProductsReviewQuery(id)) as {
+  //   data: IReview[];
+  // };
+  const { data: reviews } = useQuery({
+    ...singleProductsReviewQuery(id),
+    retry: false,
+  }) as { data: IReview[] };
+
+  useEffect(() => {
+    if (
+      product &&
+      (product.sizes.length === 0 ||
+        (product.sizes.length === 1 && product.sizes[0] === "One size"))
+    ) {
+      setSelectedSize("One size");
+    }
+  }, [product]);
 
   const handleRatingSelect = (rating: number) => setRatingValue(rating);
   const handleShowMore = () => setShowMore((prev) => !prev);
+
+  const handleAddToCart = () => {
+    if (user == null) {
+      toast.error("Please login before adding to cart");
+      navigate("/login");
+      return;
+    }
+    if (selectedSize === "") {
+      toast.error("Please select a size before adding to cart.");
+      return;
+    }
+
+    const cartItem = {
+      productId: product._id,
+      description: product.description,
+      price: product.price,
+      image: product.image,
+      amount: 1,
+      size: selectedSize || "One size",
+    };
+
+    dispatch(addItem(cartItem));
+    toast.success("Item added to cart!");
+  };
 
   return (
     <Wrapper>
@@ -146,7 +197,7 @@ const ProductPage = () => {
             </p>
           </div>
           <div className="top-right">
-            <button className="cart-btn">
+            <button className="cart-btn" onClick={handleAddToCart}>
               <img src={Cart} alt="cart icon" />
               Add To Cart
             </button>
@@ -173,20 +224,31 @@ const ProductPage = () => {
                 ${product.price} <span>(MRP incl. of all taxes)</span>
               </p>
               <button className="cart-btn">
-                <img src={Cart} alt="cart icon" />
+                <img src={Cart} alt="cart icon" onClick={handleAddToCart} />
                 Add To Cart
               </button>
             </div>
 
             <div className="sizes">
-              <h4>Available Sizes: </h4>
-              <div className="size-con">
-                {product.sizes.map((size: string, index: number) => (
-                  <div key={index} className="size">
-                    {size}
+              {product.sizes.length === 0 ||
+              product.sizes[0] === "One size" ? null : (
+                <>
+                  <h4>Available Sizes:</h4>
+                  <div className="size-con">
+                    {product.sizes.map((size: string, index: number) => (
+                      <div
+                        key={index}
+                        className={`size ${
+                          selectedSize === size ? "selected" : ""
+                        }`}
+                        onClick={() => handleSizeSelect(size)}
+                      >
+                        {size}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </>
+              )}
             </div>
           </div>
 

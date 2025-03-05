@@ -47,7 +47,6 @@ const ReviewSchema = new mongoose.Schema<IReview>(
 
 ReviewSchema.index({ product: 1, user: 1 }, { unique: true });
 
-// Define the interface for the aggregation result
 interface IAverageRatingResult {
   averageRating: number;
   numOfReviews: number;

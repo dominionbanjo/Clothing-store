@@ -15,7 +15,7 @@ import {
 } from "./pages";
 
 import { action as registerAction } from "./pages/Register";
-import { action as loginAction } from "./pages/Login";
+// import { action as loginAction } from "./pages/Login";
 import { action as profileAction } from "./pages/Profile";
 import { action as productPageAction } from "./pages/ProductPage";
 
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-    action: loginAction,
+    // action: loginAction,
   },
   {
     path: "register",

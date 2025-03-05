@@ -121,6 +121,7 @@ const Wrapper = styled.section`
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
     }
   }
   .add-review {

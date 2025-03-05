@@ -7,7 +7,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import cloudinary from "cloudinary";
 import helmet from "helmet";
-import cors from "cors";
+// import cors from "cors";
 import ExpressMongoSanitize from "express-mongo-sanitize";
 import errorHandlerMiddleWare from "./middleware/errorHandlerMiddleWare.js";
 import { authenticateUser } from "./middleware/authMiddleware.js";
@@ -21,6 +21,7 @@ import authRouter from "./routes/authRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import productRouter from "./routes/productRoutes.js";
 import reviewRouter from "./routes/reviewRoutes.js";
+import cartRouter from "./routes/cartRoutes.js";
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUD_NAME as string,
@@ -59,6 +60,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/reviews", reviewRouter);
+app.use("/api/v1/cart", authenticateUser, cartRouter);
 
 app.get("/test", (req: Request, res: Response) => {
   res.json({ msg: "test route" });
