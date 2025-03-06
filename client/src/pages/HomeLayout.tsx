@@ -42,7 +42,6 @@ const HomeLayout = () => {
     <ProductsContext.Provider value={{ productType, setProductType }}>
       <Header />
       <MobileHeader />
-
       <ScrollToTop />
       <Outlet />
       <TestimonialSection />
