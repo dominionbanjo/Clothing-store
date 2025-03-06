@@ -57,8 +57,8 @@ const Profile = () => {
     const resultAction = await dispatch(logout());
 
     if (logout.fulfilled.match(resultAction)) {
-      await dispatch(clearCart()); // Only clears cart after successful logout
       navigate(-1);
+      // await dispatch(clearCart()); // Only clears cart after successful logout
     }
   };
 
