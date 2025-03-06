@@ -5,15 +5,16 @@ import { MdClose } from "react-icons/md";
 
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { increase, decrease, clearCart } from "../../features/cartSlice";
+import { useCartContext } from "../context/cartContext";
 
 interface CartProps {
-  setShowCart: React.Dispatch<React.SetStateAction<boolean>>;
   mobile: boolean;
 }
 
-const Cart = ({ setShowCart, mobile }: CartProps) => {
+const Cart = ({ mobile }: CartProps) => {
   const dispatch = useAppDispatch();
   const { cartItems } = useAppSelector((store) => store.cart);
+  const { setShowCart } = useCartContext();
 
   const handleCloseCart = () => setShowCart(false);
 

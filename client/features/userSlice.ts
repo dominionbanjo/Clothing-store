@@ -4,13 +4,13 @@ import axios from "axios";
 
 export type UserState = {
   user: User | null;
-  loading: boolean;
+  userLoading: boolean;
   error: string | null;
 };
 
 const initialState: UserState = {
   user: null,
-  loading: false,
+  userLoading: false,
   error: null,
 };
 
@@ -61,43 +61,32 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // Handle fetchUser actions
       .addCase(fetchUser.pending, (state) => {
-        state.loading = true;
+        state.userLoading = true;
         state.error = null;
       })
       .addCase(fetchUser.fulfilled, (state, action: PayloadAction<User>) => {
-        state.loading = false;
+        state.userLoading = false;
         state.user = action.payload;
       })
       .addCase(fetchUser.rejected, (state, action) => {
-        state.loading = false;
+        state.userLoading = false;
         state.error = action.payload as string;
       })
-      // Handle logout actions
-      .addCase(logout.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
       .addCase(logout.fulfilled, (state) => {
-        state.loading = false;
+        state.userLoading = false;
         state.user = null;
       })
       .addCase(logout.rejected, (state, action) => {
-        state.loading = false;
+        state.userLoading = false;
         state.error = action.payload as string;
       })
-      // Handle updateUser actions
-      .addCase(updateUser.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
       .addCase(updateUser.fulfilled, (state, action: PayloadAction<User>) => {
-        state.loading = false;
+        state.userLoading = false;
         state.user = action.payload;
       })
       .addCase(updateUser.rejected, (state, action) => {
-        state.loading = false;
+        state.userLoading = false;
         state.error = action.payload as string;
       });
   },

@@ -4,12 +4,11 @@ import { HiMiniShoppingCart } from "react-icons/hi2";
 import { CgProfile } from "react-icons/cg";
 import { useAppSelector } from "../hooks";
 import Cart from "./Cart";
-import { useState } from "react";
+import { useCartContext } from "../context/cartContext";
 
 const Header = () => {
-  const [showCart, setShowCart] = useState(false);
-
   const { user } = useAppSelector((store) => store.user);
+  const { showCart, setShowCart } = useCartContext();
 
   return (
     <Wrapper>
@@ -53,14 +52,17 @@ const Header = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink
+            {/* <NavLink
               to="#"
               className="cart-btn"
               type="button"
               onClick={() => setShowCart(!showCart)}
-            >
-              <HiMiniShoppingCart />
-            </NavLink>
+            ></NavLink> */}
+            <HiMiniShoppingCart
+              className="cart-btn"
+              type="button"
+              onClick={() => setShowCart(!showCart)}
+            />
           </li>
           <li>
             <NavLink to="/contact" className="header-button brown" end>
@@ -69,7 +71,7 @@ const Header = () => {
           </li>
         </div>
       </ul>
-      {showCart && <Cart mobile={false} setShowCart={setShowCart} />}
+      {showCart && <Cart mobile={false} />}
     </Wrapper>
   );
 };

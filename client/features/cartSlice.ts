@@ -6,7 +6,7 @@ import { RootState } from "../src/store";
 
 export type CartState = {
   cartItems: ICartItem[];
-  loading: boolean;
+  cartLoading: boolean;
   amount: number;
   total: number;
   error: string | null;
@@ -14,7 +14,7 @@ export type CartState = {
 
 const initialState: CartState = {
   cartItems: [],
-  loading: false,
+  cartLoading: false,
   amount: 0,
   total: 0,
   error: null,
@@ -144,38 +144,40 @@ const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getCartItems.pending, (state) => {
-      state.loading = true;
+      state.cartLoading = true;
       state.error = null;
     });
     builder.addCase(getCartItems.fulfilled, (state, action) => {
       state.cartItems = action.payload;
+      state.cartLoading = false;
     });
     builder.addCase(getCartItems.rejected, (state, action) => {
-      state.loading = false;
+      state.cartLoading = false;
       state.error = action.payload as string;
     });
     builder.addCase(updateCartItems.pending, (state) => {
-      state.loading = true;
       state.error = null;
+      state.cartLoading = true;
     });
     builder.addCase(updateCartItems.fulfilled, (state, action) => {
       state.cartItems = action.payload;
+      state.cartLoading = false;
     });
     builder.addCase(updateCartItems.rejected, (state, action) => {
-      state.loading = false;
       state.error = action.payload as string;
+      state.cartLoading = false;
     });
     builder.addCase(clearCartItems.pending, (state) => {
-      state.loading = true;
       state.error = null;
+      state.cartLoading = true;
     });
     builder.addCase(clearCartItems.fulfilled, (state) => {
-      state.loading = false;
       state.cartItems = [];
+      state.cartLoading = false;
     });
     builder.addCase(clearCartItems.rejected, (state, action) => {
-      state.loading = false;
       state.error = action.payload as string;
+      state.cartLoading = false;
     });
   },
 });
