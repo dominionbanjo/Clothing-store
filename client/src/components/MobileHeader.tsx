@@ -11,7 +11,7 @@ import { useAppSelector } from "../hooks";
 import { useCartContext } from "../context/cartContext";
 
 const MobileHeader = () => {
-  const { user } = useAppSelector((store) => store.user);
+  const { user, userLoading } = useAppSelector((store) => store.user);
   const { showCart, setShowCart } = useCartContext();
 
   const [showMenu, setShowMenu] = useState(false);
@@ -38,6 +38,10 @@ const MobileHeader = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showMenu]);
+
+  if (userLoading) {
+    return <p>Loading data...</p>;
+  }
 
   return (
     <Wrapper>
