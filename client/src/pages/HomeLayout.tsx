@@ -11,7 +11,6 @@ import ScrollToTop from "../components/ScrollToTop";
 import { fetchUser } from "../../features/userSlice";
 import { getCartItems } from "../../features/cartSlice";
 import { createContext, useContext, useState } from "react";
-import { CartProvider } from "../context/cartContext";
 
 type ProductContext = {
   productType: string;
@@ -41,10 +40,8 @@ const HomeLayout = () => {
 
   return (
     <ProductsContext.Provider value={{ productType, setProductType }}>
-      <CartProvider>
-        <Header />
-        <MobileHeader />
-      </CartProvider>
+      <Header />
+      <MobileHeader />
 
       <ScrollToTop />
       <Outlet />
