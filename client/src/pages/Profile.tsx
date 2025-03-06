@@ -48,10 +48,10 @@ const Profile = () => {
 
   const handleLogout = async () => {
     const resultAction = await dispatch(logout());
-    await dispatch(clearCart());
     if (logout.fulfilled.match(resultAction)) {
       navigate(-1);
     }
+    await dispatch(clearCart());
   };
 
   if (userLoading) {
