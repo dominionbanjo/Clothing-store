@@ -54,6 +54,9 @@ const Wrapper = styled.section`
     display: flex;
     margin-bottom: 40px;
   }
+  .active {
+    background-color: #c7baaa;
+  }
   .button-shape {
     display: flex;
     align-items: center;

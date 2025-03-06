@@ -1,6 +1,6 @@
 import Abstract from "../assets/Images/Abstract2.png";
 import Wrapper from "../assets/wrappers/ProductsPageTop";
-import { useProductsContext } from "../pages/AllProductsPage";
+import { useProductsContext } from "../pages/HomeLayout";
 
 const ProductsPageTop = ({ homepage }: { homepage: boolean }) => {
   let productType: string | undefined;

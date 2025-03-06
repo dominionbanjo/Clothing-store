@@ -7,9 +7,14 @@ import QandA from "../components/QandA";
 import TestimonialSection from "../components/TestimonialSection";
 import { fetchUser } from "../../features/userSlice";
 import { getCartItems } from "../../features/cartSlice";
-
+import { createContext, useContext, useState } from "react";
 import { store } from "../store";
 import ScrollToTop from "../components/ScrollToTop";
+
+type ProductContext = {
+  productType: string;
+  setProductType: (type: string) => void;
+};
 
 export const loader = async () => {
   await store.dispatch(fetchUser());
@@ -17,9 +22,13 @@ export const loader = async () => {
   return null;
 };
 
+const ProductsContext = createContext<ProductContext | undefined>(undefined);
+
 const HomeLayout = () => {
+  const [productType, setProductType] = useState<string>("");
+
   return (
-    <>
+    <ProductsContext.Provider value={{ productType, setProductType }}>
       <Header />
       <MobileHeader />
       <ScrollToTop />
@@ -28,7 +37,18 @@ const HomeLayout = () => {
       <QandA />
       <Elevate />
       <Footer />
-    </>
+    </ProductsContext.Provider>
   );
 };
+
+export const useProductsContext = () => {
+  const context = useContext(ProductsContext);
+  if (!context) {
+    throw new Error(
+      "useProductsContext must be used within a ProductsProvider"
+    );
+  }
+  return context;
+};
+
 export default HomeLayout;

@@ -4,8 +4,10 @@ import BottomHero from "./BottomHero";
 import CraftingSection from "./CraftingSection";
 import FashionJourney from "./FashionJourney";
 import ArrowButton from "./ArrowButton";
+import { useNavigate } from "react-router-dom";
 
 const HomeHero = () => {
+  const navigate = useNavigate();
   return (
     <Wrapper>
       <section className="top-hero">
@@ -13,7 +15,7 @@ const HomeHero = () => {
           <img src={HeroImg} alt="woman with glasses" />
         </div>
       </section>
-      <ArrowButton text="Shop Now" />
+      <ArrowButton text="Shop Now" onClick={() => navigate("/products")} />
       <BottomHero />
       <CraftingSection />
       <FashionJourney />

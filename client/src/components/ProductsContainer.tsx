@@ -2,7 +2,7 @@ import Product from "../components/Product";
 // import { products } from "../utils/products2";
 import { useState, useEffect } from "react";
 import ArrowButton from "./ArrowButton";
-import { useProductsContext } from "../pages/AllProductsPage";
+import { useProductsContext } from "../pages/HomeLayout";
 import customFetch from "../utils/customFetch";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import { IProduct } from "../utils/types";
