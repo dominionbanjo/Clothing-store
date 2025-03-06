@@ -1,24 +1,28 @@
-import { Form, useNavigation, useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import Wrapper from "../assets/wrappers/LoginAndRegister";
 import Header from "../components/Header";
 import MobileHeader from "../components/MobileHeader";
 import axios from "axios";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
+import { useState } from "react";
+import { getCartItems } from "../../features/cartSlice";
+import { useAppDispatch } from "../hooks";
 
 const Login = () => {
-  const navigation = useNavigation();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isSubmitting = navigation.state === "submitting";
+  const [loading, setLoading] = useState(false);
 
-  // Function to handle login submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
 
+    setLoading(true);
     try {
       await customFetch.post("auth/login", data);
+      await dispatch(getCartItems());
       toast.success("Login Successful");
       navigate(-1);
     } catch (error) {
@@ -33,6 +37,8 @@ const Login = () => {
       } else {
         toast.error("An unknown error occurred");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -62,9 +68,8 @@ const Login = () => {
               Register
             </a>
           </p>
-          <button type="submit">
-            {" "}
-            {isSubmitting ? "Logging in" : "Login"}
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
           </button>
         </Form>
       </div>
