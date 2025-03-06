@@ -34,7 +34,7 @@ export const action = async ({ request }: { request: Request }) => {
 const Profile = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { user, loading } = useAppSelector((store) => store.user);
+  const { user, userLoading } = useAppSelector((store) => store.user);
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
@@ -54,7 +54,7 @@ const Profile = () => {
     }
   };
 
-  if (loading) {
+  if (userLoading) {
     return <p>Loading user data...</p>;
   }
 
