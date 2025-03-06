@@ -74,10 +74,29 @@ export const updateCartItems = createAsyncThunk(
 
 export const cartListenerMiddleware = createListenerMiddleware();
 
+// cartListenerMiddleware.startListening({
+//   predicate: (_, currentState, previousState) => {
+//     const prevCart = (previousState as RootState).cart.cartItems;
+//     const currentCart = (currentState as RootState).cart.cartItems;
+//     return prevCart !== currentCart;
+//   },
+//   effect: async (_, listenerApi) => {
+//     const state = listenerApi.getState() as RootState;
+//     await listenerApi.dispatch(saveCartItems(state.cart.cartItems));
+//   },
+// });
+
 cartListenerMiddleware.startListening({
-  predicate: (_, currentState, previousState) => {
+  predicate: (action, currentState, previousState) => {
     const prevCart = (previousState as RootState).cart.cartItems;
     const currentCart = (currentState as RootState).cart.cartItems;
+
+    // Skip persisting if the action is `clearCartOnLogout`
+    if (action.type === clearCartOnLogout.type) {
+      return false;
+    }
+
+    // Otherwise, persist changes if the cart items have changed
     return prevCart !== currentCart;
   },
   effect: async (_, listenerApi) => {
@@ -90,6 +109,11 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     clearCart: (state) => {
+      state.cartItems = [];
+      state.amount = 0;
+      state.total = 0;
+    },
+    clearCartOnLogout: (state) => {
       state.cartItems = [];
       state.amount = 0;
       state.total = 0;
@@ -186,6 +210,7 @@ const cartSlice = createSlice({
 
 export const {
   clearCart,
+  clearCartOnLogout,
   removeItem,
   increase,
   decrease,

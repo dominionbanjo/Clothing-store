@@ -3,7 +3,7 @@ import Wrapper from "../assets/wrappers/ProfilePage";
 import FormRow from "../components/FormRow";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { logout, updateUser } from "../../features/userSlice";
-// import { clearCart } from "../../features/cartSlice";
+import { clearCartOnLogout } from "../../features/cartSlice";
 // import { useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -58,7 +58,7 @@ const Profile = () => {
 
     if (logout.fulfilled.match(resultAction)) {
       navigate(-1);
-      // await dispatch(clearCart()); // Only clears cart after successful logout
+      await dispatch(clearCartOnLogout()); // Only clears cart after successful logout
     }
   };
 
