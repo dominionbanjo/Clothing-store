@@ -1,6 +1,6 @@
 import { Outlet, useNavigation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState, store } from "../store";
+import { RootState } from "../store";
 import Header from "../components/Header";
 import MobileHeader from "../components/MobileHeader";
 import Footer from "../components/Footer";
@@ -10,17 +10,12 @@ import TestimonialSection from "../components/TestimonialSection";
 import ScrollToTop from "../components/ScrollToTop";
 import { fetchUser } from "../../features/userSlice";
 import { getCartItems } from "../../features/cartSlice";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import { useAppDispatch } from "../hooks";
 
 type ProductContext = {
   productType: string;
   setProductType: (type: string) => void;
-};
-
-export const loader = async () => {
-  await store.dispatch(fetchUser());
-  await store.dispatch(getCartItems());
-  return null;
 };
 
 const ProductsContext = createContext<ProductContext | undefined>(undefined);
@@ -28,8 +23,15 @@ const ProductsContext = createContext<ProductContext | undefined>(undefined);
 const HomeLayout = () => {
   const [productType, setProductType] = useState<string>("");
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
   const { userLoading } = useSelector((state: RootState) => state.user);
   const { cartLoading } = useSelector((state: RootState) => state.cart);
+
+  // Fetch user and cart data when the component mounts
+  useEffect(() => {
+    dispatch(fetchUser());
+    dispatch(getCartItems());
+  }, [dispatch]);
 
   const isLoading =
     navigation.state === "loading" || userLoading || cartLoading;
