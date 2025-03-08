@@ -3,7 +3,7 @@ import Wrapper from "../assets/wrappers/ProfilePage";
 import FormRow from "../components/FormRow";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { logout, updateUser } from "../../features/userSlice";
-import { clearCart } from "../../features/cartSlice";
+import { clearCartOnLogout } from "../../features/cartSlice";
 // import { useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -34,7 +34,7 @@ export const action = async ({ request }: { request: Request }) => {
 const Profile = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { user, loading } = useAppSelector((store) => store.user);
+  const { user, userLoading } = useAppSelector((store) => store.user);
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
@@ -46,15 +46,23 @@ const Profile = () => {
   //     }
   //   }, [user, navigate]);
 
+  // const handleLogout = async () => {
+  //   const resultAction = await dispatch(logout());
+  //   if (logout.fulfilled.match(resultAction)) {
+  //     navigate(-1);
+  //   }
+  //   await dispatch(clearCart());
+  // };
   const handleLogout = async () => {
     const resultAction = await dispatch(logout());
-    await dispatch(clearCart());
+
     if (logout.fulfilled.match(resultAction)) {
       navigate(-1);
+      await dispatch(clearCartOnLogout()); // Only clears cart after successful logout
     }
   };
 
-  if (loading) {
+  if (userLoading) {
     return <p>Loading user data...</p>;
   }
 

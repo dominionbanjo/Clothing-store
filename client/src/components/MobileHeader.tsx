@@ -8,12 +8,13 @@ import { CgProfile } from "react-icons/cg";
 import PopScreen from "./PopScreen";
 import Cart from "./Cart";
 import { useAppSelector } from "../hooks";
+import { useCartContext } from "../context/cartContext";
 
 const MobileHeader = () => {
-  const { user } = useAppSelector((store) => store.user);
+  const { user, userLoading } = useAppSelector((store) => store.user);
+  const { showCart, setShowCart } = useCartContext();
 
   const [showMenu, setShowMenu] = useState(false);
-  const [showCart, setShowCart] = useState(false);
   const popScreenRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -38,6 +39,10 @@ const MobileHeader = () => {
     };
   }, [showMenu]);
 
+  if (userLoading) {
+    return <p>Loading data...</p>;
+  }
+
   return (
     <Wrapper>
       <div className="mobile-header">
@@ -52,7 +57,6 @@ const MobileHeader = () => {
                   width: "25px",
                   height: "25px",
                   borderRadius: "50%",
-                  // marginRight: "18px",
                 }}
                 src={user.avatar}
                 alt="avatar"
@@ -81,7 +85,7 @@ const MobileHeader = () => {
             />
           )}
         </AnimatePresence>
-        {showCart && <Cart mobile={true} setShowCart={setShowCart} />}
+        {showCart && <Cart mobile={true} />}
       </div>
     </Wrapper>
   );

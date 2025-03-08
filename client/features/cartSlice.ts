@@ -6,7 +6,7 @@ import { RootState } from "../src/store";
 
 export type CartState = {
   cartItems: ICartItem[];
-  loading: boolean;
+  cartLoading: boolean;
   amount: number;
   total: number;
   error: string | null;
@@ -14,7 +14,7 @@ export type CartState = {
 
 const initialState: CartState = {
   cartItems: [],
-  loading: false,
+  cartLoading: false,
   amount: 0,
   total: 0,
   error: null,
@@ -26,6 +26,8 @@ export const getCartItems = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get("/api/v1/cart");
+
+      console.log(response.data.cartItems);
       return response.data.cartItems;
     } catch (error) {
       return thunkAPI.rejectWithValue("Failed to fetch cart items");
@@ -72,10 +74,29 @@ export const updateCartItems = createAsyncThunk(
 
 export const cartListenerMiddleware = createListenerMiddleware();
 
+// cartListenerMiddleware.startListening({
+//   predicate: (_, currentState, previousState) => {
+//     const prevCart = (previousState as RootState).cart.cartItems;
+//     const currentCart = (currentState as RootState).cart.cartItems;
+//     return prevCart !== currentCart;
+//   },
+//   effect: async (_, listenerApi) => {
+//     const state = listenerApi.getState() as RootState;
+//     await listenerApi.dispatch(saveCartItems(state.cart.cartItems));
+//   },
+// });
+
 cartListenerMiddleware.startListening({
-  predicate: (_, currentState, previousState) => {
+  predicate: (action, currentState, previousState) => {
     const prevCart = (previousState as RootState).cart.cartItems;
     const currentCart = (currentState as RootState).cart.cartItems;
+
+    // Skip persisting if the action is `clearCartOnLogout`
+    if (action.type === clearCartOnLogout.type) {
+      return false;
+    }
+
+    // Otherwise, persist changes if the cart items have changed
     return prevCart !== currentCart;
   },
   effect: async (_, listenerApi) => {
@@ -88,6 +109,11 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     clearCart: (state) => {
+      state.cartItems = [];
+      state.amount = 0;
+      state.total = 0;
+    },
+    clearCartOnLogout: (state) => {
       state.cartItems = [];
       state.amount = 0;
       state.total = 0;
@@ -144,44 +170,47 @@ const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getCartItems.pending, (state) => {
-      state.loading = true;
+      state.cartLoading = true;
       state.error = null;
     });
     builder.addCase(getCartItems.fulfilled, (state, action) => {
       state.cartItems = action.payload;
+      state.cartLoading = false;
     });
     builder.addCase(getCartItems.rejected, (state, action) => {
-      state.loading = false;
+      state.cartLoading = false;
       state.error = action.payload as string;
     });
     builder.addCase(updateCartItems.pending, (state) => {
-      state.loading = true;
       state.error = null;
+      state.cartLoading = true;
     });
     builder.addCase(updateCartItems.fulfilled, (state, action) => {
       state.cartItems = action.payload;
+      state.cartLoading = false;
     });
     builder.addCase(updateCartItems.rejected, (state, action) => {
-      state.loading = false;
       state.error = action.payload as string;
+      state.cartLoading = false;
     });
     builder.addCase(clearCartItems.pending, (state) => {
-      state.loading = true;
       state.error = null;
+      state.cartLoading = true;
     });
     builder.addCase(clearCartItems.fulfilled, (state) => {
-      state.loading = false;
       state.cartItems = [];
+      state.cartLoading = false;
     });
     builder.addCase(clearCartItems.rejected, (state, action) => {
-      state.loading = false;
       state.error = action.payload as string;
+      state.cartLoading = false;
     });
   },
 });
 
 export const {
   clearCart,
+  clearCartOnLogout,
   removeItem,
   increase,
   decrease,
