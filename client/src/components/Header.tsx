@@ -7,11 +7,8 @@ import Cart from "./Cart";
 import { useCartContext } from "../context/cartContext";
 
 const Header = () => {
-  const { user, userLoading } = useAppSelector((store) => store.user);
+  const { user } = useAppSelector((store) => store.user);
   const { showCart, setShowCart } = useCartContext();
-  if (userLoading) {
-    return <p>Loading data...</p>;
-  }
 
   return (
     <Wrapper>
