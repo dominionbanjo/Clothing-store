@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import Wrapper from "../assets/wrappers/MobileHeader";
 import { TbAlignRight } from "react-icons/tb";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import { useEffect, useState, useRef } from "react";
@@ -40,12 +39,16 @@ const MobileHeader = () => {
   }, [showMenu]);
 
   return (
-    <Wrapper>
-      <div className="mobile-header">
-        <NavLink to="/" className="header-link" end>
+    <header className=" lg:hidden w-full h-14 flex items-center justify-center px-4 py-8">
+      <div className="mobile-header flex items-center justify-between w-full">
+        <NavLink
+          to="/"
+          className="header-link text-dark no-underline text-3xl"
+          end
+        >
           Style<span className="brown-text">.</span>Loom
         </NavLink>
-        <div className="right-icons">
+        <div className="right-icons w-[29%] max-w-[110px] flex items-center justify-between">
           <NavLink to={user ? "/profile" : "/login"}>
             {user?.avatar ? (
               <img
@@ -59,17 +62,20 @@ const MobileHeader = () => {
                 className="img"
               />
             ) : (
-              <CgProfile style={{ color: "white" }} />
+              <CgProfile
+                className=" text-3xl p-2 bg-gold rounded md"
+                style={{ color: "white" }}
+              />
             )}
           </NavLink>
 
           <HiMiniShoppingCart
             type="button"
-            className="cart-btn"
+            className="cart-btn text-3xl p-2 bg-gold rounded md"
             onClick={() => setShowCart(!showCart)}
           />
           <TbAlignRight
-            className="tb-align-right"
+            className="tb-align-right text-3xl p-2 bg-gold rounded md"
             onClick={() => setShowMenu(!showMenu)}
           />
         </div>
@@ -83,7 +89,7 @@ const MobileHeader = () => {
         </AnimatePresence>
         {showCart && <Cart mobile={true} />}
       </div>
-    </Wrapper>
+    </header>
   );
 };
 

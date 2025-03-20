@@ -6,6 +6,7 @@ import { useProductsContext } from "../pages/HomeLayout";
 import customFetch from "../utils/customFetch";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import { IProduct } from "../utils/types";
+import { Spinner } from "../assets/wrappers/HomepageProductsContainer";
 
 const productsQuery = () => {
   return {
@@ -32,7 +33,11 @@ export const loader = (queryClient: QueryClient) => async () => {
 };
 
 const ProductsContainer = () => {
-  const { data } = useQuery(productsQuery());
+  const { data, isLoading } = useQuery(productsQuery());
+
+  if (isLoading) {
+    return <Spinner></Spinner>;
+  }
   const products: IProduct[] = data || [];
   // console.log(data);
 

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *,
 ::after,
 ::before {
@@ -17,6 +21,13 @@ body {
   font-family: Manrope;
   background-color: var(--dark-theme-background);
 }
+
+.header-button {
+  &.active {
+    background-color: #2a2a2a;
+  }
+}
+
 .button,
 button:hover {
   cursor: pointer;
@@ -41,6 +52,7 @@ a {
   --dark-color: #ffff;
   --dark-icon: #c2b4a3;
   --light-icon: #ffd400;
+  --gold: #ae9b84;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif Manrope;
   line-height: 1.5;

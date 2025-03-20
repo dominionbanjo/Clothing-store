@@ -28,28 +28,28 @@ const PopScreen = React.forwardRef<HTMLDivElement, PopScreenProps>(
     return (
       <motion.div
         ref={ref}
-        className="pop-screen"
+        className="absolute top-14 right-4 w-48 bg-[#0f0f0f] z-30 flex flex-col py-5 pl-7 rounded-xl"
         variants={animations}
         initial="initial"
         animate="animate"
         exit="exit"
       >
         <div className="left">
-          <ul>
-            <li>
+          <ul className="list-disc">
+            <li className="mb-3">
               <NavLink
                 to="/"
-                className="header-button"
+                className=" text-sm mb-5"
                 onClick={setShowMenu}
                 end
               >
                 Home
               </NavLink>
             </li>
-            <li>
+            <li className="mb-3">
               <NavLink
                 to="/products"
-                className="header-button"
+                className=" text-sm mb-5"
                 onClick={setShowMenu}
               >
                 Products
@@ -58,11 +58,11 @@ const PopScreen = React.forwardRef<HTMLDivElement, PopScreenProps>(
           </ul>
         </div>
         <div className="right">
-          <ul>
-            <li>
+          <ul className="list-disc">
+            <li className="mb-3">
               <NavLink
                 to="/contact"
-                className="header-button brown"
+                className=" brown text-sm mb-5"
                 onClick={setShowMenu}
                 end
               >
