@@ -27,7 +27,7 @@ export const getCartItems = createAsyncThunk(
     try {
       const response = await axios.get("/api/v1/cart");
 
-      console.log(response.data.cartItems);
+      // console.log(response.data.cartItems);
       return response.data.cartItems;
     } catch (error) {
       return thunkAPI.rejectWithValue("Failed to fetch cart items");
