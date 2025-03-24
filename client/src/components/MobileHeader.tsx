@@ -39,7 +39,7 @@ const MobileHeader = () => {
   }, [showMenu]);
 
   return (
-    <header className=" lg:hidden w-full h-14 flex items-center justify-center px-4 py-8">
+    <header className=" xl:hidden w-full h-14 flex items-center justify-center px-4 py-8">
       <div className="mobile-header flex items-center justify-between w-full">
         <NavLink
           to="/"

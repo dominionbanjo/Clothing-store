@@ -7,7 +7,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import cloudinary from "cloudinary";
 import helmet from "helmet";
-// import cors from "cors";
+import cors from "cors";
 import ExpressMongoSanitize from "express-mongo-sanitize";
 import errorHandlerMiddleWare from "./middleware/errorHandlerMiddleWare.js";
 import { authenticateUser } from "./middleware/authMiddleware.js";
@@ -32,12 +32,37 @@ cloudinary.v2.config({
 app.use(cookieParser(process.env.COOKIE_SECRET as string));
 app.use(express.json());
 
-// app.use(
-//   cors({
-//     origin: "https://style-loom.netlify.app",
-//     credentials: true,
-//   })
-// );
+app.use((req, res, next) => {
+  // Block requests without proper headers
+  if (!req.headers["content-type"] && !req.headers["authorization"]) {
+    return res.status(403).json({ error: "Missing required headers" });
+  }
+  next();
+});
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Only allow your production frontend
+      const allowedOrigins = ["https://style-loom.netlify.app"];
+
+      // Block requests with no origin (unless you have a specific need)
+      if (!origin) {
+        return callback(new Error("No origin header - request blocked"), false);
+      }
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"), false);
+    },
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"], // Only these headers
+    methods: ["GET", "POST"], // Only these methods
+    optionsSuccessStatus: 200, // Legacy browsers
+  })
+);
 
 app.use(
   helmet.contentSecurityPolicy({

@@ -10,7 +10,7 @@ const Header = () => {
   const { showCart, setShowCart } = useCartContext();
 
   return (
-    <header className="hidden lg:flex bg-dark_bg pt-3 text-white w-full">
+    <header className="hidden xl:flex bg-dark_bg pt-3 text-white w-full">
       <ul className="flex w-[90%] items-center justify-between list-none mx-auto my-0 py-4">
         <div className="flex w-[13%] items-center justify-between">
           <li>

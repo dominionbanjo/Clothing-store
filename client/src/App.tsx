@@ -23,7 +23,7 @@ import { action as productPageAction } from "./pages/ProductPage";
 // import { loader as homeLoader } from "./pages/HomeLayout";
 import { loader as singleProductLoader } from "./pages/ProductPage";
 // import { loader as homeProductsLoader } from "./components/HomePageProductsContainer";
-import { loader as productsLoader } from "./components/ProductsContainer";
+// import { loader as productsLoader } from "./components/ProductsContainer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <AllProductsPage />,
-        loader: productsLoader(queryClient),
+        // loader: productsLoader(queryClient),
       },
       {
         path: "products/:id",

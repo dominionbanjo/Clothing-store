@@ -9,17 +9,21 @@ import { useNavigate } from "react-router-dom";
 const HomeHero = () => {
   const navigate = useNavigate();
   return (
-    <Wrapper>
-      <section className="top-hero">
-        <div className="img-container">
-          <img src={HeroImg} alt="woman with glasses" />
+    <section className="bg-dark_bg flex flex-col w-full items-center">
+      <section className="top-hero w-full relative top-8 flex flex-col justify-center items-center my-0 mx-auto">
+        <div className="img-container w-full h-auto">
+          <img
+            className="w-[90%]  my-0 mx-auto block rounded-t-2xl"
+            src={HeroImg}
+            alt="woman with glasses"
+          />
         </div>
       </section>
       <ArrowButton text="Shop Now" onClick={() => navigate("/products")} />
       <BottomHero />
       <CraftingSection />
       <FashionJourney />
-    </Wrapper>
+    </section>
   );
 };
 export default HomeHero;

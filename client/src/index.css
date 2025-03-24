@@ -9,6 +9,32 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+@layer components {
+  .custom-border {
+    @apply border border-dashed;
+    border-color: rgba(194, 180, 163, 0.2);
+  }
+  .button-shape {
+    @apply flex items-center justify-center text-sm md:text-base mr-[7px]   w-[65px] md:w-[80px] h-[22px] px-[35px] py-[15px] sm:px-[30px] sm:py-[20px] sm:mr-[30px] rounded-[5px] custom-border;
+  }
+  .grid-item {
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+    h2 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    p {
+      margin: 0;
+      font-size: 1rem;
+      opacity: 0.6;
+    }
+  }
+}
+
 @font-face {
   font-family: "Manrope";
   src: url("/src/assets/fonts/Manrope.ttf") format("truetype");
@@ -25,6 +51,12 @@ body {
 .header-button {
   &.active {
     background-color: #2a2a2a;
+  }
+}
+
+.button-shape {
+  &.active {
+    background-color: #c7baaa;
   }
 }
 

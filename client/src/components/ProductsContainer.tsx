@@ -1,12 +1,14 @@
 import Product from "../components/Product";
-// import { products } from "../utils/products2";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import ArrowButton from "./ArrowButton";
 import { useProductsContext } from "../pages/HomeLayout";
 import customFetch from "../utils/customFetch";
-import { QueryClient, useQuery } from "@tanstack/react-query";
 import { IProduct } from "../utils/types";
-import { Spinner } from "../assets/wrappers/HomepageProductsContainer";
+import {
+  LoadingContainer,
+  Spinner,
+} from "../assets/wrappers/HomepageProductsContainer";
+import { useQuery } from "@tanstack/react-query";
 
 const productsQuery = () => {
   return {
@@ -18,72 +20,95 @@ const productsQuery = () => {
   };
 };
 
-export const loader = (queryClient: QueryClient) => async () => {
-  await queryClient
-    .ensureQueryData(productsQuery())
-    .then((res) => {
-      if (res.status === 500) {
-        throw new Response("Not Found", { status: 500 });
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  return true;
+// Define a type for category keys
+type Category = string;
+
+// Hook to manage categories based on productType
+const useCategories = (productType: string): Category[] => {
+  return useMemo(() => {
+    switch (productType) {
+      case "Men":
+        return ["Men's Shirts", "Men's Shoes", "Men's Watches"];
+      case "Unisex":
+        return ["Glasses", "Skincare", "Fragrances"];
+      default:
+        return ["Women's Wear", "Accessories", "Hand Bag"];
+    }
+  }, [productType]);
 };
 
-const ProductsContainer = () => {
-  const { data, isLoading } = useQuery(productsQuery());
-
-  if (isLoading) {
-    return <Spinner></Spinner>;
-  }
-  const products: IProduct[] = data || [];
-  // console.log(data);
-
-  const { productType } = useProductsContext();
-  const getCategories = (type: string) => {
-    if (type === "Men") {
-      return ["Men's Shirts", "Men's Shoes", "Men's Watches"];
-    } else if (type === "Unisex") {
-      return ["Glasses", "Skincare", "Fragrances"];
-    } else {
-      return ["Women's Wear", "Accessories", "Hand Bag"];
-    }
-  };
-
-  const categories = getCategories(productType);
-
-  const initialVisibleCounts = categories.reduce((acc, category) => {
-    acc[category] = 3;
-    return acc;
-  }, {} as Record<string, number>);
-
-  const [visibleCounts, setVisibleCounts] = useState(initialVisibleCounts);
-  const [showMore, setShowMore] = useState(
-    categories.reduce((acc, category) => {
-      acc[category] = false;
-      return acc;
-    }, {} as Record<string, boolean>)
+// Hook to manage visible counts and showMore state
+const useVisibleProducts = (categories: Category[]) => {
+  const initialVisibleCounts = useMemo(
+    () =>
+      categories.reduce((acc, category) => {
+        acc[category] = 3; // Default visible count
+        return acc;
+      }, {} as Record<Category, number>),
+    [categories]
   );
 
+  const initialShowMore = useMemo(
+    () =>
+      categories.reduce((acc, category) => {
+        acc[category] = false; // Default showMore state
+        return acc;
+      }, {} as Record<Category, boolean>),
+    [categories]
+  );
+
+  const [visibleCounts, setVisibleCounts] = useState(initialVisibleCounts);
+  const [showMore, setShowMore] = useState(initialShowMore);
+
+  // Reset visibleCounts and showMore when categories change
   useEffect(() => {
-    setVisibleCounts(
-      categories.reduce((acc, category) => {
-        acc[category] = 3;
-        return acc;
-      }, {} as Record<string, number>)
-    );
+    setVisibleCounts(initialVisibleCounts);
+    setShowMore(initialShowMore);
+  }, [initialVisibleCounts, initialShowMore]);
 
-    setShowMore(
-      categories.reduce((acc, category) => {
-        acc[category] = false;
-        return acc;
-      }, {} as Record<string, boolean>)
-    );
-  }, [productType]);
+  return { visibleCounts, showMore, setVisibleCounts, setShowMore };
+};
 
-  const handleToggleView = (subCategory: string) => {
+// Main component
+const ProductsContainer = () => {
+  const { productType } = useProductsContext();
+  const categories = useCategories(productType);
+  const { visibleCounts, showMore, setVisibleCounts, setShowMore } =
+    useVisibleProducts(categories);
+
+  const { data, isLoading } = useQuery(productsQuery());
+
+  // const [products, setProducts] = useState<IProduct[]>([]);
+  // const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch products
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     try {
+  //       const { data } = await customFetch.get("/products");
+  //       setProducts(data.products);
+  //     } catch (error) {
+  //       console.error("Error fetching products:", error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   fetchProducts();
+  // }, []);
+
+  if (isLoading) {
+    return (
+      <LoadingContainer>
+        <Spinner />
+        <p>Fetching products...</p>
+      </LoadingContainer>
+    );
+  }
+
+  const products: IProduct[] = data || [];
+
+  // Handle toggling view for a subCategory
+  const handleToggleView = (subCategory: Category) => {
     const filteredProductsCount = products.filter(
       (product) => product.subCategory === subCategory
     ).length;
@@ -101,31 +126,36 @@ const ProductsContainer = () => {
 
   return (
     <>
-      {categories.map((subCategory) => (
-        <section className="dress-section gen-sec" key={subCategory}>
-          <div className="section-top">
-            <h2>{subCategory}</h2>
-            <ArrowButton text="View All" />
-          </div>
-          <div className="products-container">
-            {products
-              .filter((product) => product.subCategory === subCategory)
-              .slice(0, visibleCounts[subCategory])
-              .map((product) => (
-                <Product key={product._id} {...product} />
-              ))}
-          </div>
-          {products.filter((product) => product.subCategory === subCategory)
-            .length > 3 && (
-            <button
-              className="view-more"
-              onClick={() => handleToggleView(subCategory)}
-            >
-              {showMore[subCategory] ? "Show Less" : "View More"}
-            </button>
-          )}
-        </section>
-      ))}
+      {categories.map((subCategory) => {
+        const filteredProducts = products.filter(
+          (product) => product.subCategory === subCategory
+        );
+        const isShowMoreVisible = filteredProducts.length > 3;
+
+        return (
+          <section className="dress-section gen-sec" key={subCategory}>
+            <div className="section-top">
+              <h2>{subCategory}</h2>
+              <ArrowButton text="View All" />
+            </div>
+            <div className="products-container">
+              {filteredProducts
+                .slice(0, visibleCounts[subCategory])
+                .map((product) => (
+                  <Product key={product._id} {...product} />
+                ))}
+            </div>
+            {isShowMoreVisible && (
+              <button
+                className="view-more"
+                onClick={() => handleToggleView(subCategory)}
+              >
+                {showMore[subCategory] ? "Show Less" : "View More"}
+              </button>
+            )}
+          </section>
+        );
+      })}
     </>
   );
 };
