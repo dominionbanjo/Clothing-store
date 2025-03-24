@@ -32,21 +32,22 @@ cloudinary.v2.config({
 app.use(cookieParser(process.env.COOKIE_SECRET as string));
 app.use(express.json());
 
-app.use((req, res, next) => {
-  // Block requests without proper headers
-  if (!req.headers["content-type"] && !req.headers["authorization"]) {
-    return res.status(403).json({ error: "Missing required headers" });
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   // Block requests without proper headers
+//   if (!req.headers["content-type"] && !req.headers["authorization"]) {
+//     return res.status(403).json({ error: "Missing required headers" });
+//   }
+//   next();
+// });
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Only allow your production frontend
-      const allowedOrigins = ["https://style-loom.netlify.app"];
+      const allowedOrigins = [
+        "http://localhost:5173",
+        "https://style-loom.netlify.app",
+      ];
 
-      // Block requests with no origin (unless you have a specific need)
       if (!origin) {
         return callback(new Error("No origin header - request blocked"), false);
       }
@@ -58,9 +59,9 @@ app.use(
       return callback(new Error("Not allowed by CORS"), false);
     },
     credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"], // Only these headers
-    methods: ["GET", "POST"], // Only these methods
-    optionsSuccessStatus: 200, // Legacy browsers
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST"],
+    optionsSuccessStatus: 200,
   })
 );
 
