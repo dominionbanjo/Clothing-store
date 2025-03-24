@@ -1,8 +1,10 @@
-/*
-  Access-Control-Allow-Origin: https://style-loom.netlify.app
-  Access-Control-Allow-Methods: GET, POST, PUT, DELETE
-  Access-Control-Allow-Headers: Content-Type, Authorization
-  Access-Control-Allow-Credentials: true
-  X-Frame-Options: DENY
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
+# /*
+#   Access-Control-Allow-Origin: https://style-loom.netlify.app
+#   Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+#   Access-Control-Allow-Headers: Content-Type, Authorization
+#   Access-Control-Allow-Credentials: true
+#   Access-Control-Max-Age: 600
+#   X-Frame-Options: DENY
+#   X-Content-Type-Options: nosniff
+#   Referrer-Policy: strict-origin-when-cross-origin
+#   Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; script-src 'self'; connect-src 'self' https://your-api-domain.com
