@@ -1,4 +1,4 @@
-import Wrapper from "../assets/wrappers/HomeHero";
+// import Wrapper from "../assets/wrappers/HomeHero";
 import HeroImg from "../assets/Images/Image.png";
 import BottomHero from "./BottomHero";
 import CraftingSection from "./CraftingSection";
