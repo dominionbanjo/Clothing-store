@@ -7,7 +7,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import cloudinary from "cloudinary";
 import helmet from "helmet";
-import cors from "cors";
+// import cors from "cors";
 import ExpressMongoSanitize from "express-mongo-sanitize";
 import errorHandlerMiddleWare from "./middleware/errorHandlerMiddleWare.js";
 import { authenticateUser } from "./middleware/authMiddleware.js";
@@ -31,54 +31,6 @@ cloudinary.v2.config({
 
 app.use(cookieParser(process.env.COOKIE_SECRET as string));
 app.use(express.json());
-
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const origin = req.headers.origin || "";
-  const referer = req.headers.referer || "";
-
-  const getBaseURL = (url: string) => {
-    try {
-      const urlObj = new URL(url);
-      return `${urlObj.protocol}//${urlObj.host}`;
-    } catch (error) {
-      return "";
-    }
-  };
-
-  const originBase = getBaseURL(origin);
-  const refererBase = getBaseURL(referer);
-
-  if (originBase && refererBase && originBase !== refererBase) {
-    throw new Error("Origin manipulation detected");
-  }
-
-  next();
-});
-
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      const allowedOrigins = [
-        "http://localhost:5173",
-        "https://style-loom.netlify.app",
-      ];
-
-      if (!origin) {
-        return callback(new Error("No origin header - request blocked"), false);
-      }
-
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
-      return callback(new Error("Not allowed by CORS"), false);
-    },
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    optionsSuccessStatus: 200,
-  })
-);
 
 app.use(
   helmet.contentSecurityPolicy({
@@ -124,3 +76,51 @@ try {
   console.log(error);
   process.exit(1);
 }
+
+// app.use((req: Request, res: Response, next: NextFunction) => {
+//   const origin = req.headers.origin || "";
+//   const referer = req.headers.referer || "";
+
+//   const getBaseURL = (url: string) => {
+//     try {
+//       const urlObj = new URL(url);
+//       return `${urlObj.protocol}//${urlObj.host}`;
+//     } catch (error) {
+//       return "";
+//     }
+//   };
+
+//   const originBase = getBaseURL(origin);
+//   const refererBase = getBaseURL(referer);
+
+//   if (originBase && refererBase && originBase !== refererBase) {
+//     throw new Error("Origin manipulation detected");
+//   }
+
+//   next();
+// });
+
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       const allowedOrigins = [
+//         "http://localhost:5173",
+//         "https://style-loom.netlify.app",
+//       ];
+
+//       if (!origin) {
+//         return callback(new Error("No origin header - request blocked"), false);
+//       }
+
+//       if (allowedOrigins.includes(origin)) {
+//         return callback(null, true);
+//       }
+
+//       return callback(new Error("Not allowed by CORS"), false);
+//     },
+//     credentials: true,
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+//     optionsSuccessStatus: 200,
+//   })
+// );
