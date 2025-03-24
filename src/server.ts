@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 import "express-async-errors";
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
@@ -32,13 +32,28 @@ cloudinary.v2.config({
 app.use(cookieParser(process.env.COOKIE_SECRET as string));
 app.use(express.json());
 
-// app.use((req, res, next) => {
-//   // Block requests without proper headers
-//   if (!req.headers["content-type"] && !req.headers["authorization"]) {
-//     return res.status(403).json({ error: "Missing required headers" });
-//   }
-//   next();
-// });
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const origin = req.headers.origin || "";
+  const referer = req.headers.referer || "";
+
+  const getBaseURL = (url: string) => {
+    try {
+      const urlObj = new URL(url);
+      return `${urlObj.protocol}//${urlObj.host}`;
+    } catch (error) {
+      return "";
+    }
+  };
+
+  const originBase = getBaseURL(origin);
+  const refererBase = getBaseURL(referer);
+
+  if (originBase && refererBase && originBase !== refererBase) {
+    throw new Error("Origin manipulation detected");
+  }
+
+  next();
+});
 
 app.use(
   cors({
@@ -60,7 +75,7 @@ app.use(
     },
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     optionsSuccessStatus: 200,
   })
 );
