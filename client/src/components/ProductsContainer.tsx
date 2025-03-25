@@ -133,12 +133,14 @@ const ProductsContainer = () => {
         const isShowMoreVisible = filteredProducts.length > 3;
 
         return (
-          <section className="dress-section gen-sec" key={subCategory}>
-            <div className="section-top">
-              <h2>{subCategory}</h2>
+          <section className="dress-section gen-sec w-full" key={subCategory}>
+            <div className="section-top custom-border w-[90%]  px-[15px] py-[20px] flex justify-between items-center mx-auto my-0">
+              <h2 className="uppercase text-[20px] md:text-4xl">
+                {subCategory}
+              </h2>
               <ArrowButton text="View All" />
             </div>
-            <div className="products-container">
+            <div className="products-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-[90%]   mx-auto my-0 justify-center gap:0">
               {filteredProducts
                 .slice(0, visibleCounts[subCategory])
                 .map((product) => (
@@ -147,7 +149,7 @@ const ProductsContainer = () => {
             </div>
             {isShowMoreVisible && (
               <button
-                className="view-more"
+                className="view-more flex my-[10px] mx-auto custom-border px-[15px] py-[8px]"
                 onClick={() => handleToggleView(subCategory)}
               >
                 {showMore[subCategory] ? "Show Less" : "View More"}

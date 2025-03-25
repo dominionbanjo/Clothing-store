@@ -2,12 +2,18 @@ import Abstract from "../assets/Images/Abstract.png";
 const FashionJourney = () => {
   return (
     <>
-      <section className="journey">
-        <div className="journey-top">
-          <img src={Abstract} alt="" />
+      <section className="journey homepage-section">
+        <div className="journey-top w-full pl-[40px] text-left mb-[60px] relative z-10">
+          <img
+            className="hidden lg:block absolute top-[-47px] right-0 lg:w-[185px]  h-auto rounded-tr-[10px] z-[-1]"
+            src={Abstract}
+            alt=""
+          />
           <div className="journey-top-texts">
-            <h2>Navigating the StyleLoom Fashion Journey.</h2>
-            <p>
+            <h2 className="text-xl md:text-2xl lg:text-2xl uppercase mb-5">
+              Navigating the StyleLoom Fashion Journey.
+            </h2>
+            <p className="text-sm w-full opacity-60">
               At StyleLoom, we've designed a straightforward shopping experience
               to make fashion accessible.
             </p>

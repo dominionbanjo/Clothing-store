@@ -38,7 +38,7 @@ const Header = () => {
           </NavLink>
         </li>
 
-        <div className="flex w-[14%] items-center justify-between">
+        <div className="flex  xl:w-[18%] items-center justify-between">
           <li>
             <NavLink to={user ? "/profile" : "/login"}>
               {user?.avatar ? (
