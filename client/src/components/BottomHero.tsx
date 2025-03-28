@@ -13,9 +13,9 @@ const BottomHero = () => {
   };
 
   return (
-    <section className="bottom-hero">
-      <div className="bottom-hero-left">
-        <div className="top-options">
+    <section className="bottom-hero px-[10px] py-0 w-[90%] mt-[30px] lg:mt-[40px] mb-[0px] lg:mb-[50px] flex flex-col lg:flex-row justify-between items-center">
+      <div className="bottom-hero-left flex flex-col justify-center w-[100%] lg:w-[40%]">
+        <div className="top-options flex md:justify-center lg:justify-normal mb-5 md:mb-10">
           <div
             className={`button-shape button ${
               productType === "Unisex" ? "active" : ""
@@ -25,7 +25,7 @@ const BottomHero = () => {
             Unisex
           </div>
           <div
-            className={`button-shape button ${
+            className={`button-shape  button ${
               productType === "Men" ? "active" : ""
             }`}
             onClick={() => handleClick("Men")}
@@ -50,16 +50,18 @@ const BottomHero = () => {
           </div>
         </div>
         <div className="left-texts">
-          <h2>Elevate Your Style with StyleLoom</h2>
-          <p>
+          <h2 className=" text-xl sm:text-3xl uppercase mb-4 sm:mb-5">
+            Elevate Your Style with StyleLoom
+          </h2>
+          <p className=" text-sm sm:text-base opacity-60">
             Explore a world of fashion at StyleLoom, where trends meet
             affordability. Immerse yourself in the latest styles and seize
             exclusive promotions.
           </p>
         </div>
       </div>
-      <div className="bottom-hero-right">
-        <div className="left-hero-grid">
+      <div className="bottom-hero-right flex flex-col justify-center mb-0 mx-auto mt-5 md:mt-16 w-[100%] lg:w-[45%] ">
+        <div className="left-hero-grid grid grid-cols-2 grid-rows-2 gap-0 md:gap-5  ">
           <div className="grid-item">
             <h2>1,500 +</h2>
             <p>Fashion Products</p>

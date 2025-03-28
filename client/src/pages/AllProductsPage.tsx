@@ -1,14 +1,14 @@
-import Wrapper from "../assets/wrappers/AllProductsPage";
+// import Wrapper from "../assets/wrappers/AllProductsPage";
 import ProductsContainer from "../components/ProductsContainer";
 import ProductsPageTop from "../components/ProductsPageTop";
 
 const AllProducts = () => {
   return (
     <>
-      <Wrapper>
+      <div className="">
         <ProductsPageTop homepage={false} />
         <ProductsContainer />
-      </Wrapper>
+      </div>
     </>
   );
 };

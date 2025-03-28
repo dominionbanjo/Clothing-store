@@ -9,6 +9,93 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+@layer components {
+  .custom-border {
+    @apply border border-dashed;
+    border-color: rgba(194, 180, 163, 0.2);
+  }
+  .button-shape {
+    @apply flex items-center justify-center text-[13px] md:text-base mr-[7px]   w-[55px] md:w-[75px] h-[22px] px-[30px] py-[16px] sm:px-[30px] sm:py-[20px] sm:mr-[30px] rounded-[5px] custom-border;
+  }
+  .homepage-section {
+    @apply w-[90%] mt-[50px] lg:mt-[150px] custom-border rounded-2xl pt-5 lg:pt-12 mb-0 lg:mb-20;
+  }
+
+  .crafting-bottom {
+    @apply w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3;
+  }
+  .crafting-grid-item {
+    @apply custom-border h-[300px] w-full relative p-[20px] text-left;
+  }
+  .crafting-grid-item img {
+    @apply block mb-[45px];
+  }
+
+  .crafting-grid-item img:nth-of-type(2) {
+    @apply absolute top-[10px] right-[10px] w-[140px] h-auto;
+  }
+  .crafting-grid-item h3 {
+    @apply mx-0 mt-[20px] mb-[10px];
+  }
+
+  .crafting-grid-item p {
+    @apply m-0 text-[13px] opacity-60;
+  }
+
+  .journey-bottom {
+    @apply w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4;
+  }
+  .journey-grid-item {
+    @apply custom-border h-[210px] lg:h-[250px] w-full relative p-[20px] text-left;
+  }
+
+  .journey-grid-item h3 {
+    @apply mx-0 mt-[20px] mb-[10px];
+  }
+
+  .journey-grid-item p {
+    @apply m-0 text-[13px] opacity-60;
+  }
+
+  .grid-item {
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+    h2 {
+      @apply m-0 text-[1.5rem] sm:text-[2.5rem];
+    }
+
+    p {
+      @apply m-0 opacity-55 text-[12px] sm:text-[15px];
+    }
+  }
+}
+.social-box {
+  @apply flex items-center justify-center w-[35px] lg:w-[45px] h-[35px] lg:h-[45px] rounded-[5px] lg:rounded-[8px] bg-[#d6cdc2] mr-[0px];
+}
+
+footer {
+  & .left,
+  .right,
+  .middle {
+    width: 100%;
+    margin-bottom: 20px;
+    & h3 {
+      margin-bottom: 20px;
+    }
+    & a {
+      color: var(--dark-color);
+      margin-right: 20px;
+      font-size: 14px;
+      opacity: 0.6;
+    }
+    input {
+      @apply w-[85%] px-[20px] py-[13px] rounded-[5px] bg-[#404040] text-[16px];
+    }
+  }
+}
+
 @font-face {
   font-family: "Manrope";
   src: url("/src/assets/fonts/Manrope.ttf") format("truetype");
@@ -26,6 +113,28 @@ body {
   &.active {
     background-color: #2a2a2a;
   }
+}
+
+.button-shape {
+  &.active {
+    background-color: #c7baaa;
+  }
+}
+
+.bottom {
+  &.active {
+    background-color: #c7baaa;
+  }
+  &.button-shape {
+    @apply flex items-center justify-center w-[80px] h-[22px] px-[30px] py-[20px] mr-[30px] rounded-[5px] custom-border;
+  }
+}
+.q-a {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .button,

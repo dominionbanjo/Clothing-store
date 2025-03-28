@@ -15,20 +15,22 @@ import icon6 from "../assets/Images/Icon6.png";
 const CraftingSection = () => {
   return (
     <>
-      <section className="crafting">
-        <div className="crafting-top">
-          <h2>Crafting Trends, Inspiring Confidence</h2>
-          <p>
+      <section className="crafting homepage-section">
+        <div className="crafting-top w-[90%] pl-[15px] lg:pl-[40px] text-left mb-[30px] lg:mb-[60px]">
+          <h2 className="text-xl md:text-2xl lg:text-4xl uppercase mb-5">
+            Crafting Trends, Inspiring Confidence
+          </h2>
+          <p className="text-sm opacity-60">
             Explore a world of fashion at StyleLoom, where trends meet
             affordability.
           </p>
         </div>
-        <div className="crafting-bottom">
-          <div className="crafting-grid-item">
-            <img src={firstIcon} alt="" />
-            <img src={icon1} alt="" />
-            <h3>Passionate Craftsmanship</h3>
-            <p>
+        <div className="crafting-bottom ">
+          <div className="crafting-grid-item ">
+            <img className="" src={firstIcon} alt="" />
+            <img className="" src={icon1} alt="" />
+            <h3 className="">Passionate Craftsmanship</h3>
+            <p className="">
               Every garment at StyleLoom is crafted with passion, reflecting our
               commitment to quality and innovation.
             </p>

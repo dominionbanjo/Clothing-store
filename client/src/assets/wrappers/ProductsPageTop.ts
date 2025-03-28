@@ -81,7 +81,7 @@ const Wrapper = styled.div<WrapperProps>`
   }
   @media (max-width: 576px) {
     .journey {
-      width: 95%;
+      width: 90%;
       margin-top: 30px;
       padding-top: 25px;
     }

@@ -32,7 +32,7 @@ const HomePageProductsContainer = () => {
   const products: IProduct[] = data || [];
 
   return (
-    <div className="products-container">
+    <div className="products-container  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-auto w-[90%] custom-border  justify-center gap-0 ">
       {products.slice(0, 6).map((product) => (
         <Product key={product._id} {...product} />
       ))}
