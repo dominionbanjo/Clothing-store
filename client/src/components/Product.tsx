@@ -19,7 +19,11 @@ const Product = ({
       <div className="buttons">
         <div className="category">{category}</div>
         <Link to={`/products/${_id}`}>
-          <ArrowButton text="Shop Now" />
+          <ArrowButton
+            className="mt-[10px]"
+            iconClassName="text-[16px] sm:text-[20px]"
+            text="Shop Now"
+          />
         </Link>
       </div>
       <div className="bottom">

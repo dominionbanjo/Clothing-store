@@ -3,7 +3,7 @@ const FashionJourney = () => {
   return (
     <>
       <section className="journey homepage-section">
-        <div className="journey-top w-full pl-[40px] text-left mb-[60px] relative z-10">
+        <div className="journey-top w-full pl-[20px] sm:pl-[40px] text-left mb-[30px] sm:mb-[60px] relative z-10">
           <img
             className="hidden lg:block absolute top-[-47px] right-0 lg:w-[185px]  h-auto rounded-tr-[10px] z-[-1]"
             src={Abstract}
