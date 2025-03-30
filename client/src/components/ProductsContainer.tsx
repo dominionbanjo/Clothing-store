@@ -78,24 +78,6 @@ const ProductsContainer = () => {
 
   const { data, isLoading } = useQuery(productsQuery());
 
-  // const [products, setProducts] = useState<IProduct[]>([]);
-  // const [isLoading, setIsLoading] = useState(true);
-
-  // Fetch products
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     try {
-  //       const { data } = await customFetch.get("/products");
-  //       setProducts(data.products);
-  //     } catch (error) {
-  //       console.error("Error fetching products:", error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   fetchProducts();
-  // }, []);
-
   if (isLoading) {
     return (
       <LoadingContainer>

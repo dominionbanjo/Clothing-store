@@ -14,7 +14,7 @@ const TestimonialSection = () => {
       <div className="w-[95%] mt-[50px] mb-[20px] border-[1px] border-dashed border-[rgba(194,180,163,0.2)] rounded-[15px] pt-[25px] sm:w-[90%] sm:mt-[150px] sm:mb-[150px] sm:pt-[50px]">
         <div className="w-full pl-[10px] text-left mb-[20px] relative z-[1] sm:pl-[40px] sm:mb-[30px]">
           <img
-            className="hidden lg:block absolute top-[-50px] right-0 w-[254px] h-auto rounded-tr-[10px] z-[-1]"
+            className="hidden lg:block absolute top-[-50px] right-0 w-[220px] h-auto rounded-tr-[10px] z-[-1]"
             src={Abstract}
             alt=""
           />

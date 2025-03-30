@@ -2,13 +2,7 @@ import Wrapper from "../assets/wrappers/ProductPage";
 import Cart from "../assets/Images/cart.png";
 import StarRating from "../components/StarRating";
 import { useRef, useState, useEffect } from "react";
-import {
-  Form,
-  Params,
-  useLoaderData,
-  useNavigation,
-  useNavigate,
-} from "react-router-dom";
+import { Form, useParams, useNavigation, useNavigate } from "react-router-dom";
 import FormRow from "../components/FormRow";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import customFetch from "../utils/customFetch";
@@ -17,6 +11,10 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { addItem } from "../../features/cartSlice";
+import {
+  LoadingContainer,
+  Spinner,
+} from "../assets/wrappers/HomepageProductsContainer";
 
 export const action =
   (queryClient: QueryClient) =>
@@ -29,10 +27,10 @@ export const action =
       await customFetch.post("/reviews", data);
       toast.success("Review added successfully");
       queryClient.invalidateQueries({
-        queryKey: ["Review", productId] as const,
+        queryKey: ["reviews", productId],
       });
       await queryClient.invalidateQueries({
-        queryKey: ["product", productId] as const,
+        queryKey: ["product", productId],
       });
       return true;
     } catch (error) {
@@ -52,68 +50,78 @@ export const action =
   };
 
 // Fetch a single product data
-const singleProductsQuery = (id: string) => ({
-  queryKey: ["product", id],
-  queryFn: async () => {
-    const { data } = await customFetch.get(`/products/${id}`);
-    return data.product;
-  },
-});
+const fetchProduct = async (id: string): Promise<IProduct> => {
+  const { data } = await customFetch.get(`/products/${id}`);
+  return data.product;
+};
 
 // Fetch a single product's reviews
-const singleProductsReviewQuery = (id: string) => ({
-  queryKey: ["Review", id],
-  queryFn: async () => {
+// const fetchReviews = async (id: string): Promise<IReview[]> => {
+//   const { data } = await customFetch.get(`/reviews/${id}/review`);
+//   return data.reviews;
+// };
+const fetchReviews = async (id: string): Promise<IReview[]> => {
+  try {
     const { data } = await customFetch.get(`/reviews/${id}/review`);
-    return data.reviews;
-  },
-  staleTime: Infinity,
-});
-
-// Loader for prefetching data
-export const loader =
-  (queryClient: QueryClient) =>
-  async ({ params }: { params: Params }) => {
-    const id = params.id!;
-
-    try {
-      await queryClient
-        .ensureQueryData(singleProductsQuery(id))
-        .then((res) => {
-          if (res.status === 500) {
-            throw new Response("Not Found", { status: 500 });
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-      await queryClient
-        .ensureQueryData(singleProductsReviewQuery(id))
-        .then((res) => {
-          if (res.status === 500) {
-            throw new Response("Not Found", { status: 500 });
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } catch (error) {
-      console.error("Error loading data:", error);
-      throw new Response("Not Found", { status: 500 });
+    return data.reviews || [];
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
+      return []; // Return empty array for 404 errors
     }
-
-    return id;
-  };
+    throw error; // Re-throw other errors
+  }
+};
 
 const ProductPage = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((store) => store.user);
+
+  const { id } = useParams<{ id: string }>();
+  if (!id) {
+    throw new Error("Product ID is missing");
+  }
 
   const formRef = useRef<HTMLFormElement | null>(null);
   const [ratingValue, setRatingValue] = useState(0);
   const [resetRating, setResetRating] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [selectedSize, setSelectedSize] = useState<string>("");
+
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
+  const navigate = useNavigate();
+
+  // Product query
+  const {
+    data: product,
+    isLoading: productLoading,
+    error: productError,
+  } = useQuery<IProduct>({
+    queryKey: ["product", id],
+    queryFn: () => fetchProduct(id),
+  });
+
+  // Reviews query
+  const {
+    data: reviews,
+    isLoading: reviewsLoading,
+    error: reviewsError,
+  } = useQuery<IReview[]>({
+    queryKey: ["reviews", id],
+    queryFn: () => fetchReviews(id),
+    staleTime: Infinity,
+    retry: false,
+  });
+
+  useEffect(() => {
+    if (
+      product &&
+      (product.sizes.length === 0 ||
+        (product.sizes.length === 1 && product.sizes[0] === "One size"))
+    ) {
+      setSelectedSize("One size");
+    }
+  }, [product]);
 
   const handleFormSubmit = () => {
     const intervalId = setInterval(() => {
@@ -131,38 +139,12 @@ const ProductPage = () => {
   };
 
   const handleSizeSelect = (size: string) => setSelectedSize(size);
-
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
-  const id = useLoaderData() as string;
-
-  const navigate = useNavigate();
-
-  const { data: product } = useQuery(singleProductsQuery(id)) as {
-    data: IProduct;
-  };
-  // const { data: reviews } = useQuery(singleProductsReviewQuery(id)) as {
-  //   data: IReview[];
-  // };
-  const { data: reviews } = useQuery({
-    ...singleProductsReviewQuery(id),
-    retry: false,
-  }) as { data: IReview[] };
-
-  useEffect(() => {
-    if (
-      product &&
-      (product.sizes.length === 0 ||
-        (product.sizes.length === 1 && product.sizes[0] === "One size"))
-    ) {
-      setSelectedSize("One size");
-    }
-  }, [product]);
-
   const handleRatingSelect = (rating: number) => setRatingValue(rating);
   const handleShowMore = () => setShowMore((prev) => !prev);
 
   const handleAddToCart = () => {
+    if (!product) return;
+
     if (user == null) {
       toast.error("Please login before adding to cart");
       navigate("/login");
@@ -185,6 +167,22 @@ const ProductPage = () => {
     dispatch(addItem(cartItem));
     toast.success("Item added to cart!");
   };
+
+  if (productLoading) {
+    return (
+      <LoadingContainer>
+        <Spinner />
+      </LoadingContainer>
+    );
+  }
+
+  if (productError) {
+    return <div>Error loading product</div>;
+  }
+
+  if (!product) {
+    return <div>Product not found</div>;
+  }
 
   return (
     <Wrapper>
@@ -262,7 +260,7 @@ const ProductPage = () => {
             >
               <input type="hidden" name="product" value={product._id} />
               <input type="hidden" name="rating" value={ratingValue} />
-              <input type="hidden" name="author" value={user?.fullName} />
+              <input type="hidden" name="author" value={user?.fullName || ""} />
               <h3>Leave a review</h3>
               <FormRow type="text" name="title" labelText="Review title:" />
               <FormRow type="text" name="comment" labelText="Comments:" />
@@ -289,7 +287,19 @@ const ProductPage = () => {
               </div>
 
               <h3>Reviews</h3>
-              {reviews ? (
+              {reviewsLoading ? (
+                <LoadingContainer>
+                  <Spinner />
+                </LoadingContainer>
+              ) : reviewsError ? (
+                // Check if error is 404 (not found)
+                axios.isAxiosError(reviewsError) &&
+                reviewsError.response?.status === 404 ? (
+                  <p>No reviews available for this product</p>
+                ) : (
+                  <p>Error loading reviews</p>
+                )
+              ) : reviews && reviews.length > 0 ? (
                 reviews
                   .slice(0, showMore ? reviews.length : 2)
                   .map((review, index) => (
@@ -301,19 +311,14 @@ const ProductPage = () => {
                     </div>
                   ))
               ) : (
-                <p>No reviews available</p>
+                <p>No reviews found</p>
               )}
             </div>
-            {reviews ? (
-              reviews.length > 2 && (
-                <button className="load-more" onClick={handleShowMore}>
-                  {showMore ? "Show Less" : "Load More"}
-                </button>
-              )
-            ) : (
-              <></>
+            {reviews && reviews.length > 2 && (
+              <button className="load-more" onClick={handleShowMore}>
+                {showMore ? "Show Less" : "Load More"}
+              </button>
             )}
-            {}
           </div>
         </div>
       </div>

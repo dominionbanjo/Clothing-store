@@ -22,19 +22,19 @@ const Elevate = () => {
             Now' and embrace a world of chic elegance delivered to your
             doorstep. Your style journey begins here.
           </p>
-          <button className="relative text-white w-full lg:absolute lg:w-auto right-0 lg:right-[-120px] top-[25px] lg:top-[70px] border-none p-[0_13px] text-[19px] lg:text-[initial]">
-            {/* <ArrowButton text="Shop Now" /> */}
-            <ArrowButton
-              text="Shop Now"
-              onClick={() => navigate("/products")}
-              className="relative w-full h-[44px] rounded-[9px] lg:rounded-[8px] right-0 top-[-16px] text-[23px] sm:w-full sm:h-[50px] sm:mt-[15px] sm:text-[23px]  
+          {/* <button className="relative text-white w-full lg:absolute lg:w-auto right-0 lg:right-[-120px] top-[25px] lg:top-[70px] border-none p-[0_13px] text-[19px] lg:text-[initial]"> */}
+          {/* <ArrowButton text="Shop Now" /> */}
+          <ArrowButton
+            text="Shop Now"
+            onClick={() => navigate("/products")}
+            className=" relative text-white  lg:absolute  border-none p-[0_13px] lg:text-[initial]relative w-full h-[44px] rounded-[9px] lg:rounded-[8px] right-0 top-[-16px] text-[23px] sm:w-full sm:h-[50px] sm:mt-[15px] sm:text-[23px]  
               md:w-full md:h-[50px] md:mt-[15px] md:text-[18px]  
               lg:w-[105px] lg:h-12 l lg:text-[1vw] lg:top-[10px] lg:right-[-10px]
               xl:w-[135px] xl:mt-[4px] bg-[#1f1f1f] flex items-center justify-center 
               capitalize"
-              iconClassName="text-[23px] sm:text-[23px]"
-            />
-          </button>
+            iconClassName="text-[23px] sm:text-[23px]"
+          />
+          {/* </button> */}
         </div>
       </div>
     </div>

@@ -48,7 +48,7 @@ const MobileHeader = () => {
         >
           Style<span className="brown-text">.</span>Loom
         </NavLink>
-        <div className="right-icons w-[29%] max-w-[110px] flex items-center justify-between">
+        <div className="right-icons w-[33%] max-w-[110px] flex items-center justify-between">
           <NavLink to={user ? "/profile" : "/login"}>
             {user?.avatar ? (
               <img

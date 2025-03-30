@@ -20,7 +20,7 @@ const Product = ({
         <div className="category">{category}</div>
         <Link to={`/products/${_id}`}>
           <ArrowButton
-            className="mt-[10px]"
+            className="mt-[9px] lg:mt-[10px]"
             iconClassName="text-[16px] sm:text-[20px]"
             text="Shop Now"
           />

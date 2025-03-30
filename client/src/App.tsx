@@ -21,7 +21,7 @@ import { action as profileAction } from "./pages/Profile";
 import { action as productPageAction } from "./pages/ProductPage";
 
 // import { loader as homeLoader } from "./pages/HomeLayout";
-import { loader as singleProductLoader } from "./pages/ProductPage";
+// import { loader as singleProductLoader } from "./pages/ProductPage";
 // import { loader as homeProductsLoader } from "./components/HomePageProductsContainer";
 // import { loader as productsLoader } from "./components/ProductsContainer";
 
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
         path: "products/:id",
         element: <ProductPage />,
         action: productPageAction(queryClient),
-        loader: singleProductLoader(queryClient),
+        // loader: singleProductLoader(queryClient),
       },
       {
         path: "contact",
