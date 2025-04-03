@@ -96,6 +96,12 @@ footer {
   }
 }
 
+.review-form {
+  input {
+    @apply w-[60%] h-[35px] px-[10px] py-0;
+  }
+}
+
 @font-face {
   font-family: "Manrope";
   src: url("/src/assets/fonts/Manrope.ttf") format("truetype");

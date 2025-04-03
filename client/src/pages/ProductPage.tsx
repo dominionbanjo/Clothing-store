@@ -1,4 +1,4 @@
-import Wrapper from "../assets/wrappers/ProductPage";
+// import Wrapper from "../assets/wrappers/ProductPage";
 import Cart from "../assets/Images/cart.png";
 import StarRating from "../components/StarRating";
 import { useRef, useState, useEffect } from "react";
@@ -185,58 +185,80 @@ const ProductPage = () => {
   }
 
   return (
-    <Wrapper>
-      <div className="main">
-        <div className="top">
+    <section className="w-95% lg:w-[90%] flex flex-col items-center mx-auto my-[30px] lg:my-[60px]">
+      <div className="main w-full flex flex-col items-center custom-border rounded-[20px]">
+        <div className="top w-full flex flex-col lg:flex-row items-start lg:items-center justify-between px-[10px] py-[20px] lg:px-[50px] lg:py-[30px] border-b border-dashed border-[rgba(194,180,163,0.2)]">
           <div className="top-left">
-            <h1>{product.description.toUpperCase()}</h1>
-            <p>
-              {product.fit} <span>In stock</span>
+            <h1 className="text-[23px] lg:text-[40px]">
+              {product.description.toUpperCase()}
+            </h1>
+            <p className="text-[14px] opacity-60 mt-[15px]">
+              {product.fit}{" "}
+              <span className="ml-[5px] lg:ml-[20px] bg-[#4caf50] px-[12px] py-[3px] lg:px-[15px] lg:py-[5px] rounded-[3px] lg:rounded-[5px]">
+                In stock
+              </span>
             </p>
           </div>
           <div className="top-right">
-            <button className="cart-btn" onClick={handleAddToCart}>
-              <img src={Cart} alt="cart icon" />
+            <button
+              className="cart-btn flex items-center mt-[15px] px-[7px] py-[4px] lg:px-[13px] lg:py-[8px] custom-border rounded-[5px] lg:rounded-lg"
+              onClick={handleAddToCart}
+            >
+              <img className="mr-[10px]" src={Cart} alt="cart icon" />
               Add To Cart
             </button>
           </div>
         </div>
 
-        <div className="images-container">
-          <img src={product.image} alt="product" />
+        <div className="images-container w-full flex items-center justify-center border-b border-dashed border-[rgba(194,180,163,0.2)]">
+          <img
+            className="self-center  max-w-[500px] min-w-[200px] lg:max-w-[700px] lg:min-w-[360px] m-[30px]"
+            src={product.image}
+            alt="product"
+          />
         </div>
 
-        <div className="products-info">
-          <div className="features">
-            <h3>Features</h3>
-            <ul>
+        <div className="products-info grid grid-cols-1 lg:grid-cols-2 w-full">
+          <div className="features flex flex-col py-[20px] lg:py-[40px]  custom-border">
+            <h3 className="w-[65%] text-[24px] px-[15px] lg:px-[115px] mb-[20px]">
+              Features
+            </h3>
+            <ul className="list-disc px-[24px] lg:px-[140px] ">
               {product.features.map((feature: string, index: number) => (
-                <li key={index}>{feature}</li>
+                <li className="text-[14px] opacity-70 mb-[5px]" key={index}>
+                  {feature}
+                </li>
               ))}
             </ul>
           </div>
 
-          <div className="price-and-sizes-container">
-            <div className="prices">
-              <p>
-                ${product.price} <span>(MRP incl. of all taxes)</span>
+          <div className="price-and-sizes-container flex flex-col items-center justify-center custom-border">
+            <div className="prices flex flex-col lg:flex-row items-start lg:items-center justify-around py-0 px-[18px] pt-[30px]  lg:pt-[40px] w-full">
+              <p className="mb-[15px]">
+                ${product.price}{" "}
+                <span className="opacity-60 text-[14px] ml-[5px] lg:ml-[15px]">
+                  (MRP incl. of all taxes)
+                </span>
               </p>
-              <button className="cart-btn">
-                <img src={Cart} alt="cart icon" onClick={handleAddToCart} />
+              <button
+                className="cart-btn flex items-center px-[7px] py-[4px] lg:px-[13px] lg:py-[8px] custom-border rounded-[5px] lg:rounded-lg"
+                onClick={handleAddToCart}
+              >
+                <img src={Cart} alt="cart icon" />
                 Add To Cart
               </button>
             </div>
 
-            <div className="sizes">
+            <div className="sizes  border-t border-dashed border-[rgba(194,180,163,0.2)] px-[20px] py-[20px] lg:px-[30px] w-full mt-[40px]">
               {product.sizes.length === 0 ||
               product.sizes[0] === "One size" ? null : (
                 <>
-                  <h4>Available Sizes:</h4>
-                  <div className="size-con">
+                  <h4 className="mb-[20px] lg:mb-[20px]">Available Sizes:</h4>
+                  <div className="size-con w-full flex items-center">
                     {product.sizes.map((size: string, index: number) => (
                       <div
                         key={index}
-                        className={`size ${
+                        className={`size bg-[#262626] w-[65px] h-[35px] mr-[20px] rounded-[10px] flex items-center justify-center cursor-pointer ${
                           selectedSize === size ? "selected" : ""
                         }`}
                         onClick={() => handleSizeSelect(size)}
@@ -250,43 +272,60 @@ const ProductPage = () => {
             </div>
           </div>
 
-          <div className="add-review">
+          <div className="add-review w-full p-[15px] lg:p-[40px] custom-border">
             <Form
               id="review-form"
               method="post"
               ref={formRef}
-              className="review-form"
+              className="review-form w-[95%] lg:w-[80%] flex flex-col justify-center"
               onSubmit={handleFormSubmit}
             >
               <input type="hidden" name="product" value={product._id} />
               <input type="hidden" name="rating" value={ratingValue} />
               <input type="hidden" name="author" value={user?.fullName || ""} />
-              <h3>Leave a review</h3>
-              <FormRow type="text" name="title" labelText="Review title:" />
-              <FormRow type="text" name="comment" labelText="Comments:" />
-              <div className="star-div">
+              <h3 className="mb-[15px] text-[25px]">Leave a review</h3>
+              <FormRow
+                className="mb-[25px] flex justify-between"
+                type="text"
+                name="title"
+                labelText="Review title:"
+              />
+              <FormRow
+                className="mb-[25px] flex justify-between"
+                type="text"
+                name="comment"
+                labelText="Comments:"
+              />
+              <div className="star-div flex items-center justify-between w-[90%] sm:w-[70%] lg:w-[60%]">
                 <p>Give a rating: </p>
                 <StarRating
                   resetRating={resetRating}
                   onRatingSelect={handleRatingSelect}
                 />
               </div>
-              <button type="submit">
+              <button
+                type="submit"
+                className="w-[40%] lg:w-[25%] p-[10px] mt-[20px] rounded-[5px] border-none self-center bg-[#8d7d6a]"
+              >
                 {isSubmitting ? "Submitting" : "Submit"}
               </button>
             </Form>
           </div>
 
-          <div className="ratings-and-reviews">
-            <h3>Ratings & Reviews</h3>
-            <div className="reviews">
-              <div className="total-reviews">
-                <h1>{product.averageRating}</h1>
+          <div className="ratings-and-reviews w-full custom-border pt-[10px] lg:pt-[20px] flex flex-col">
+            <h3 className="text-[22px] lg:text-[24px] mb-[20px] lg:mb-[45px] mt-[10px] text-center">
+              Ratings & Reviews
+            </h3>
+            <div className="reviews mb-[20px]">
+              <div className="total-reviews  flex flex-col custom-border pb-[20px] items-center">
+                <h1 className="text-[30px] m-3">{product.averageRating}</h1>
                 <StarRating rating={product.averageRating} />
                 <p>{product.numOfReviews} ratings</p>
               </div>
 
-              <h3>Reviews</h3>
+              <h3 className="mb-[15px] mt-[10px] text-center text-[28px]">
+                Reviews
+              </h3>
               {reviewsLoading ? (
                 <LoadingContainer>
                   <Spinner />
@@ -303,26 +342,32 @@ const ProductPage = () => {
                 reviews
                   .slice(0, showMore ? reviews.length : 2)
                   .map((review, index) => (
-                    <div className="review" key={index}>
-                      <p className="author">{review.author}</p>
-                      <p className="title">{review.title}</p>
-                      <p className="comment">{review.comment}</p>
+                    <div
+                      className="review flex flex-col items-center pb-[15px] "
+                      key={index}
+                    >
+                      <p className="author font-bold">{review.author}</p>
+                      <p className="title italic">{review.title}</p>
+                      <p className="comment text-center">{review.comment}</p>
                       <StarRating rating={review.rating} />
                     </div>
                   ))
               ) : (
-                <p>No reviews found</p>
+                <p className="text-center">No reviews found</p>
               )}
             </div>
             {reviews && reviews.length > 2 && (
-              <button className="load-more" onClick={handleShowMore}>
+              <button
+                className="load-more bg-[#8d7d6a] w-[40%] lg:w-[25%] self-center text-white border-none px-[15px] py-[10px] rounded-[5px] cursor-pointer hover:bg-transparent "
+                onClick={handleShowMore}
+              >
                 {showMore ? "Show Less" : "Load More"}
               </button>
             )}
           </div>
         </div>
       </div>
-    </Wrapper>
+    </section>
   );
 };
 

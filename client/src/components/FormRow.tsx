@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 interface FormRow {
   type: string;
   name: string;
@@ -5,6 +7,7 @@ interface FormRow {
   labelText?: string;
   placeHolder?: string;
   label?: boolean;
+  className?: string;
   onChange?: () => void;
 }
 
@@ -15,10 +18,11 @@ const FormRow = ({
   labelText,
   defaultValue,
   placeHolder,
+  className,
   onChange,
 }: FormRow) => {
   return (
-    <div className="form-row">
+    <div className={clsx("form-row", className)}>
       {label && (
         <label className="label" htmlFor={name}>
           {labelText || name}

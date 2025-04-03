@@ -3,9 +3,9 @@ import ContactInfo from "../components/ContactInfo";
 
 const ContactPage = () => {
   return (
-    <section>
+    <Wrapper>
       <ContactInfo />
-    </section>
+    </Wrapper>
   );
 };
 export default ContactPage;
