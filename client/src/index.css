@@ -12,8 +12,7 @@
 
 @layer components {
   .custom-border {
-    @apply border border-dashed;
-    border-color: rgba(194, 180, 163, 0.2);
+    @apply border border-dashed  border-[rgba(194,180,163,0.2)];
   }
   .button-shape {
     @apply flex items-center justify-center text-[13px] md:text-base mr-[7px]   w-[55px] md:w-[75px] h-[22px] px-[30px] py-[16px] sm:px-[30px] sm:py-[20px] sm:mr-[30px] rounded-[5px] custom-border;
@@ -100,6 +99,41 @@ footer {
   input {
     @apply w-[60%] h-[35px] px-[10px] py-0;
   }
+}
+.first-section-bottom {
+  & .first-section-grid-item {
+    @apply last:border-none lg:first:border-none custom-border h-[350px] w-full p-[20px] overflow-hidden text-left flex flex-col justify-center items-center relative;
+    & img {
+      @apply w-[20%] block mb-[25px];
+    }
+    & img:nth-of-type(2) {
+      @apply absolute top-[10px] right-[10px] w-[140px];
+    }
+    & h3 {
+      @apply mx-0 mt-[20px] mb-[25px];
+    }
+    & p {
+      @apply m-0 text-[13px] bg-[#2a2a2a] custom-border border-2 px-[40px] py-[16px] rounded-[20px] w-[280px] text-center hover:cursor-pointer;
+    }
+  }
+}
+
+.bottom-item {
+  @apply w-full px-[35px] py-[40px] flex items-center justify-between border-b lg:border-r border-dashed border-[rgba(194,180,163,0.2)];
+}
+.bottom-item {
+  & img {
+    @apply w-[20%];
+  }
+  & .texts {
+    @apply w-[70%];
+  }
+  & p {
+    @apply mt-[15px] text-[14px] opacity-60;
+  }
+}
+.bottom .bottom-item:last-child {
+  @apply last:rounded-b-[15px] lg:border-none;
 }
 
 @font-face {
