@@ -13,57 +13,39 @@ export interface IOrderSchema extends Document {
   shippingFee: number;
   subTotal: number;
   total: number;
+  tax?: number;
   orderItems: ICartItem[];
   status: OrderStatus;
   user: Types.ObjectId;
+  clientSecret?: string;
+  reference?: string;
+  paymentUrl?: string;
+  paymentIntentId?: string;
 }
 
-const OrderSchema = new mongoose.Schema<IOrderSchema>({
-  shippingFee: {
-    type: Number,
-    required: true,
+const OrderSchema = new mongoose.Schema<IOrderSchema>(
+  {
+    shippingFee: { type: Number, required: true },
+    subTotal: { type: Number, required: true },
+    total: { type: Number, required: true },
+    tax: { type: Number },
+    orderItems: [CartItemSchema],
+    status: {
+      type: String,
+      enum: Object.values(OrderStatus),
+      default: OrderStatus.Pending,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    clientSecret: { type: String },
+    reference: { type: String },
+    paymentUrl: { type: String },
+    paymentIntentId: { type: String },
   },
-  subTotal: {
-    type: Number,
-    required: true,
-  },
-  total: {
-    type: Number,
-    required: true,
-  },
-  orderItems: [CartItemSchema],
-  status: {
-    type: String,
-    enum: Object.values(OrderStatus),
-    default: OrderStatus.Pending,
-  },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-});
+  { timestamps: true }
+);
 
 export default mongoose.model<IOrderSchema>("Order", OrderSchema);
-
-// const SingleOrderItemSchema = new mongoose.Schema<ISingleOrderItem>({
-//   name: { type: String, required: true },
-//   image: { type: String, required: true },
-//   size: { type: String, required: true },
-//   price: { type: Number, required: true },
-//   amount: { type: Number, required: true },
-//   product: {
-//     type: Schema.Types.ObjectId,
-//     ref: "Product",
-//     required: true,
-//   },
-// });
-
-// export interface ISingleOrderItem extends Document {
-//   name: string;
-//   image: string;
-//   price: number;
-//   amount: number;
-//   size: string;
-//   product: Types.ObjectId;
-// }

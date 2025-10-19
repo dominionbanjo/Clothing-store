@@ -38,7 +38,7 @@ const ContactPage = () => {
         <h2 className="first-mid w-full custom-border px-[18px] py-[20px] lg:px-[40px] lg:py-[30px] mx-0 my-[0px]">
           CONTACT INFORMATION
         </h2>
-        <div className="first-section-bottom  w-full grid grid-cols-1 lg:grid-cols-3">
+        <div className="grid w-full grid-cols-1 first-section-bottom lg:grid-cols-3">
           <div className="first-section-grid-item">
             <img src={firstIcon} alt="" />
             <img src={icon1} alt="" />
@@ -67,7 +67,7 @@ const ContactPage = () => {
             text="Read Return Policy"
           />
         </div>
-        <div className="bottom grid grid-cols-1 lg:grid-cols-3">
+        <div className="grid grid-cols-1 bottom lg:grid-cols-3">
           <div className="bottom-item ">
             <img className="" src={Return1} alt="loading" />
             <div className="texts">
@@ -88,7 +88,7 @@ const ContactPage = () => {
               </p>
             </div>
           </div>
-          <div className="bottom-item border-none">
+          <div className="border-none bottom-item">
             <img src={Return3} alt="loading" />
             <div className="texts">
               <h4>Refund Timeline</h4>
@@ -108,7 +108,7 @@ const ContactPage = () => {
             text="Read Cancellation Policy"
           />
         </div>
-        <div className="bottom grid grid-cols-1 lg:grid-cols-3">
+        <div className="grid grid-cols-1 bottom lg:grid-cols-3">
           <div className="bottom-item">
             <img src={Cancel1} alt="loading" />
             <div className="texts">
@@ -129,7 +129,7 @@ const ContactPage = () => {
               </p>
             </div>
           </div>
-          <div className="bottom-item border-none">
+          <div className="border-none bottom-item">
             <img src={Cancel3} alt="loading" />
             <div className="texts">
               <h4>Refund Timeline</h4>

@@ -6,6 +6,8 @@ import {
 } from "../errors/customError.js";
 import Product from "../models/productModel.js";
 import { StatusCodes } from "http-status-codes";
+import cloudinary from "cloudinary";
+import fs from "fs";
 
 interface CustomRequest extends Request {
   user?: {
@@ -101,5 +103,43 @@ export const deleteProduct = async (
     res.status(StatusCodes.OK).json({ msg: "Product removed successfully" });
   } else {
     throw new BadRequestError("Invalid request");
+  }
+};
+
+export const uploadProductImage = async (req: Request, res: Response) => {
+  // `multer` puts the uploaded file on req.file, not req.files
+  const file = req.file;
+
+  if (!file) {
+    throw new BadRequestError("No image file provided");
+  }
+
+  try {
+    // Upload directly from memory buffer to Cloudinary
+    const result = await new Promise((resolve, reject) => {
+      const stream = cloudinary.v2.uploader.upload_stream(
+        {
+          folder: "Products",
+          use_filename: true,
+        },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+
+      stream.end(file.buffer);
+    });
+
+    const { secure_url, public_id } = result as any;
+
+    return res.status(StatusCodes.OK).json({
+      msg: "Image uploaded successfully",
+      imageUrl: secure_url,
+      publicId: public_id,
+    });
+  } catch (error) {
+    console.error("Cloudinary upload error:", error);
+    throw new BadRequestError("Image upload failed");
   }
 };

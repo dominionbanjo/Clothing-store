@@ -5,14 +5,28 @@ import MobileHeader from "../components/MobileHeader";
 import axios from "axios";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getCartItems } from "../../features/cartSlice";
-import { useAppDispatch } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { fetchUser } from "../../features/userSlice";
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+  const { user } = useAppSelector((state) => state.user);
+
+  // Automatically redirect if user already logged in
+  useEffect(() => {
+    if (user) {
+      if (user.role === "admin") {
+        navigate("/admin", { replace: true });
+      } else {
+        navigate("/", { replace: true });
+      }
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,10 +35,15 @@ const Login = () => {
 
     setLoading(true);
     try {
+      // 1️⃣ Login user
       await customFetch.post("auth/login", data);
+
+      // 2️⃣ Fetch user + cart into Redux
+      await dispatch(fetchUser());
       await dispatch(getCartItems());
+
       toast.success("Login Successful");
-      navigate(-1);
+      // 3️⃣ Redirect handled by useEffect when `user` updates
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response) {

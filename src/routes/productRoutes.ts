@@ -12,6 +12,7 @@ import {
   authorizePermissions,
 } from "../middleware/authMiddleware.js";
 import { validateCreateProductInput } from "../middleware/validationMiddleware.js";
+import upload from "../middleware/multerMiddleware.js";
 
 const router = Router();
 

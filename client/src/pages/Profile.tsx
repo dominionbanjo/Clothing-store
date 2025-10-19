@@ -1,77 +1,80 @@
-import { Form, useNavigation, useNavigate } from "react-router-dom";
+import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Wrapper from "../assets/wrappers/ProfilePage";
 import FormRow from "../components/FormRow";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { logout, updateUser } from "../../features/userSlice";
 import { clearCartOnLogout } from "../../features/cartSlice";
-// import { useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { store } from "../store";
-
-export const action = async ({ request }: { request: Request }) => {
-  const formData = await request.formData();
-  const file = (formData.get("avatar") as File) || null;
-  if (file && file.size > 500_000) {
-    toast.error("Image size must be less than 0.5MB");
-    return new Response(null, { status: 400 });
-  }
-  try {
-    await store.dispatch(updateUser(formData));
-    toast.success("Profile updated successfully");
-    return new Response(null, { status: 200 });
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const errorMsg = error.response?.data?.msg || "An unknown error occurred";
-      toast.error(errorMsg);
-      return new Response(null, { status: error.response?.status || 500 });
-    }
-    toast.error("An unknown error occurred");
-    return new Response(null, { status: 500 });
-  }
-};
 
 const Profile = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { user, userLoading } = useAppSelector((store) => store.user);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
-
-  //   useEffect(() => {
-  //     if (!user) {
-  //       toast.success("Logout Successful");
-  //       navigate("/");
-  //     }
-  //   }, [user, navigate]);
-
-  // const handleLogout = async () => {
-  //   const resultAction = await dispatch(logout());
-  //   if (logout.fulfilled.match(resultAction)) {
-  //     navigate(-1);
-  //   }
-  //   await dispatch(clearCart());
-  // };
+  /* ---------------------------- Logout Handler ---------------------------- */
   const handleLogout = async () => {
     const resultAction = await dispatch(logout());
-
     if (logout.fulfilled.match(resultAction)) {
+      await dispatch(clearCartOnLogout());
       navigate(-1);
-      await dispatch(clearCartOnLogout()); // Only clears cart after successful logout
+      toast.success("Logout successful");
     }
   };
 
+  /* ---------------------------- Form Submit ---------------------------- */
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      setIsSubmitting(true);
+
+      const formData = new FormData(e.currentTarget);
+      const file = (formData.get("avatar") as File) || null;
+
+      if (file && file.size > 500_000) {
+        toast.error("Image size must be less than 0.5MB");
+        setIsSubmitting(false);
+        return;
+      }
+
+      const resultAction = await dispatch(updateUser(formData));
+
+      if (updateUser.fulfilled.match(resultAction)) {
+        toast.success("Profile updated successfully");
+      } else {
+        toast.error("Failed to update profile");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMsg =
+          error.response?.data?.msg || "An unknown error occurred";
+        toast.error(errorMsg);
+      } else {
+        toast.error("An unexpected error occurred");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  /* ---------------------------- Loading State ---------------------------- */
   if (userLoading) {
-    return <p>Loading user data...</p>;
+    return (
+      <p className="py-10 text-center text-gray-500">Loading user data...</p>
+    );
   }
 
+  /* ---------------------------- Render ---------------------------- */
   return (
     <Wrapper>
       <button className="logout-button" onClick={handleLogout}>
         Logout
       </button>
-      <Form method="post" encType="multipart/form-data">
+
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <h1
           style={{
             textAlign: "center",
@@ -82,7 +85,9 @@ const Profile = () => {
         >
           Profile
         </h1>
+
         <div className="form-center">
+          {/* Avatar Upload */}
           <div className="form-row">
             <label htmlFor="avatar" className="label">
               Select an image file (max 0.5 MB)
@@ -95,23 +100,37 @@ const Profile = () => {
               accept="image/*"
             />
           </div>
+
+          {/* Full Name */}
           <FormRow
             type="text"
             name="fullName"
             labelText="Full name"
             defaultValue={user?.fullName || ""}
           />
-          <FormRow type="email" name="email" defaultValue={user?.email} />
+
+          {/* Email */}
+          <FormRow
+            type="email"
+            name="email"
+            labelText="Email"
+            defaultValue={user?.email || ""}
+          />
+
+          {/* Location */}
           <FormRow
             type="text"
             name="location"
+            labelText="Location"
             defaultValue={user?.location || ""}
           />
+
+          {/* Submit Button */}
           <button className="btn" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Submitting" : "Submit"}
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </div>
-      </Form>
+      </form>
     </Wrapper>
   );
 };

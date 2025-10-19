@@ -12,7 +12,7 @@ export interface IProduct {
   numOfReviews: number;
   featured: boolean;
   user: string;
-  reviews: IReview[];
+  reviews?: IReview[];
 }
 
 export interface Params {

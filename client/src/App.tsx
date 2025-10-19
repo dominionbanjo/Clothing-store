@@ -14,18 +14,14 @@ import {
   Register,
   Profile,
 } from "./pages";
+import VerifyPayment from "./pages/VerifyPayments";
+import OrdersPage from "./pages/OrdersPage";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
+import AdminProductsPage from "./pages/admin/AdminProductsPage";
+import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
+import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 
-import { action as registerAction } from "./pages/Register";
-// import { action as loginAction } from "./pages/Login";
-import { action as profileAction } from "./pages/Profile";
-import { action as productPageAction } from "./pages/ProductPage";
-
-// import { loader as homeLoader } from "./pages/HomeLayout";
-// import { loader as singleProductLoader } from "./pages/ProductPage";
-// import { loader as homeProductsLoader } from "./components/HomePageProductsContainer";
-// import { loader as productsLoader } from "./components/ProductsContainer";
-
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60 * 5,
@@ -37,34 +33,27 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-    // action: loginAction,
   },
   {
     path: "register",
     element: <Register />,
-    action: registerAction,
   },
   {
     path: "/",
     element: <HomeLayout />,
     errorElement: <ErrorPage />,
-    // loader: homeLoader,
     children: [
       {
         index: true,
         element: <HomePage />,
-        // loader: homeProductsLoader(queryClient),
       },
       {
         path: "products",
         element: <AllProductsPage />,
-        // loader: productsLoader(queryClient),
       },
       {
         path: "products/:id",
         element: <ProductPage />,
-        action: productPageAction(queryClient),
-        // loader: singleProductLoader(queryClient),
       },
       {
         path: "contact",
@@ -73,10 +62,19 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
-        action: profileAction,
       },
+
+      {
+        path: "/verify",
+        element: <VerifyPayment />,
+      },
+      { path: "orders", element: <OrdersPage /> },
+      { path: "orders/:id", element: <OrderDetailsPage /> },
     ],
   },
+  { path: "admin", element: <AdminDashboardPage /> },
+  { path: "admin/products", element: <AdminProductsPage /> },
+  { path: "admin/orders", element: <AdminOrdersPage /> },
 ]);
 
 function App() {

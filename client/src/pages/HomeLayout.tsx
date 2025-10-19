@@ -6,8 +6,8 @@ import Elevate from "../components/Elevate";
 import QandA from "../components/QandA";
 import TestimonialSection from "../components/TestimonialSection";
 import ScrollToTop from "../components/ScrollToTop";
-import { fetchUser } from "../../features/userSlice";
-import { getCartItems } from "../../features/cartSlice";
+// import { fetchUser } from "../../features/userSlice";
+// import { getCartItems } from "../../features/cartSlice";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useAppDispatch } from "../hooks";
 
@@ -20,23 +20,9 @@ const ProductsContext = createContext<ProductContext | undefined>(undefined);
 
 const HomeLayout = () => {
   const [productType, setProductType] = useState<string>("");
-  // const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  // const { userLoading } = useSelector((state: RootState) => state.user);
-  // const { cartLoading } = useSelector((state: RootState) => state.cart);
 
-  // Fetch user and cart data when the component mounts
-  useEffect(() => {
-    dispatch(fetchUser());
-    dispatch(getCartItems());
-  }, [dispatch]);
-
-  // const isLoading =
-  //   navigation.state === "loading" || userLoading || cartLoading;
-
-  // if (isLoading) {
-  //   return <div>Loading data from server...</div>;
-  // }
+  useEffect(() => {}, [dispatch]);
 
   return (
     <ProductsContext.Provider value={{ productType, setProductType }}>

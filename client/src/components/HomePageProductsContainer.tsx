@@ -1,39 +1,38 @@
-import { useQuery } from "@tanstack/react-query";
 import Product from "../components/Product";
-import customFetch from "../utils/customFetch";
 import {
   LoadingContainer,
   Spinner,
 } from "../assets/wrappers/HomepageProductsContainer";
 import { IProduct } from "../utils/types";
-
-const featuredProductsQuery = () => {
-  return {
-    queryKey: ["featuredProducts"],
-    queryFn: async () => {
-      const { data } = await customFetch.get("/products?featured=true");
-      return data.products;
-    },
-  };
-};
+import useGetAllProductsController from "../modules/AllProductsPage/controllers/getAllProductsController";
 
 const HomePageProductsContainer = () => {
-  const { data, isLoading } = useQuery(featuredProductsQuery());
+  const { products, isLoading, isError } = useGetAllProductsController({
+    featured: true,
+  });
 
   if (isLoading) {
     return (
       <LoadingContainer>
-        <Spinner></Spinner>
-        <p>Fetching products...</p>
+        <Spinner />
+        <p>Fetching featured products...</p>
       </LoadingContainer>
     );
   }
 
-  const products: IProduct[] = data || [];
+  if (isError) {
+    return (
+      <LoadingContainer>
+        <p className="text-red-500">Failed to load featured products</p>
+      </LoadingContainer>
+    );
+  }
+
+  const featuredProducts: IProduct[] = products || [];
 
   return (
-    <div className="products-container  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-auto w-[90%] custom-border  justify-center gap-0 ">
-      {products.slice(0, 6).map((product) => (
+    <div className="products-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-auto w-[90%] custom-border justify-center gap-0">
+      {featuredProducts.slice(0, 6).map((product) => (
         <Product key={product._id} {...product} />
       ))}
     </div>

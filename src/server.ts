@@ -22,6 +22,8 @@ import userRouter from "./routes/userRoutes.js";
 import productRouter from "./routes/productRoutes.js";
 import reviewRouter from "./routes/reviewRoutes.js";
 import cartRouter from "./routes/cartRoutes.js";
+import orderRouter from "./routes/orderRoutes.js";
+import uploadRouter from "./routes/uploadRoutes.js";
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUD_NAME as string,
@@ -54,6 +56,8 @@ app.use("/api/v1/users", authenticateUser, userRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/reviews", reviewRouter);
 app.use("/api/v1/cart", authenticateUser, cartRouter);
+app.use("/api/v1/orders", authenticateUser, orderRouter);
+app.use("/api/v1/upload", uploadRouter);
 
 app.get("/test", (req: Request, res: Response) => {
   res.json({ msg: "test route" });
